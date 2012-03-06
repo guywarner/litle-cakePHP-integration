@@ -15,6 +15,7 @@
 </header>
 <h4>Authorization</h4>
 <p>The Authorization transaction enables you to confirm that a customer has submitted a valid payment method with their order and has sufficient funds to purchase the goods or services they ordered.</p>
+<li><?php echo $this->Html->link(__('New Auth'), array('action' => 'add')); ?> </li>
 
 <h4>Authotization Reversal</h4>
 <p>The Authorization Reversal transaction enables you to remove the hold on any funds being held by an Authorization. The original Authorization transaction must have been processed within the Litle system.</p>
