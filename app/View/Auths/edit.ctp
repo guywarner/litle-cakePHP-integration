@@ -16,6 +16,9 @@
 		echo $this->Form->input('expDate');
 		echo $this->Form->input('cardValidationNum');
 		echo $this->Form->input('id');
+		echo $this->Form->input('message');
+		echo $this->Form->input('response');
+		echo $this->Form->input('authMessage');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit'));?>

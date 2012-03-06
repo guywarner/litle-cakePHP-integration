@@ -66,6 +66,21 @@
 			<?php echo h($auth['Auth']['id']); ?>
 			&nbsp;
 		</dd>
+		<dt><?php echo __('Message'); ?></dt>
+		<dd>
+			<?php echo h($auth['Auth']['message']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Response'); ?></dt>
+		<dd>
+			<?php echo h($auth['Auth']['response']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('AuthMessage'); ?></dt>
+		<dd>
+			<?php echo h($auth['Auth']['authMessage']); ?>
+			&nbsp;
+		</dd>
 	</dl>
 </div>
 <div class="actions">

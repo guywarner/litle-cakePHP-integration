@@ -1,5 +1,5 @@
 <?php
-/* Auth Fixture generated on: 2012-03-06 19:09:56 : 1331060996 */
+/* Auth Fixture generated on: 2012-03-06 21:35:16 : 1331069716 */
 
 /**
  * AuthFixture
@@ -32,6 +32,9 @@ class AuthFixture extends CakeTestFixture {
 		'expDate' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 20, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'charset' => 'latin1'),
 		'cardValidationNum' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 20, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'charset' => 'latin1'),
 		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 10, 'key' => 'primary', 'collate' => NULL, 'comment' => ''),
+		'message' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 200, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'charset' => 'latin1'),
+		'response' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 20, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'charset' => 'latin1'),
+		'authMessage' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 20, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'charset' => 'latin1'),
 		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1)),
 		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'MyISAM')
 	);
@@ -55,7 +58,10 @@ class AuthFixture extends CakeTestFixture {
 			'number' => 'Lorem ipsum dolor ',
 			'expDate' => 'Lorem ipsum dolor ',
 			'cardValidationNum' => 'Lorem ipsum dolor ',
-			'id' => 1
+			'id' => 1,
+			'message' => 'Lorem ipsum dolor sit amet',
+			'response' => 'Lorem ipsum dolor ',
+			'authMessage' => 'Lorem ipsum dolor '
 		),
 	);
 }

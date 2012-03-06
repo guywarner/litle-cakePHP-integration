@@ -42,31 +42,39 @@ class AuthsController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
+			
+			
+			$hash_in = array(
+						'orderId'=> '4',
+						'amount'=>$this->data['Auth']['amount'],
+						'orderSource'=>'ecommerce',
+						'billToAddress'=>array(
+								'name'=>$this->data['Auth']['name'],
+								'addressLine1'=>$this->data['Auth']['address1'],
+								'city'=>$this->data['Auth']['city'],
+								'state'=>$this->data['Auth']['state'],
+								'country'=>$this->data['Auth']['country'],
+								'zip'=>$this->data['Auth']['zip'],
+								'email'=>$this->data['Auth']['email']),
+						'card'=> array(
+								'type'=>$this->data['Auth']['type'],
+								'number'=>$this->data['Auth']['number'],
+								'expDate'=>$this->data['Auth']['expDate'],
+								'cardValidationNum'=>$this->data['Auth']['cardValidationNum']));
+			$initilaize = &new LitleOnlineRequest();
+			@$authorizationResponse = $initilaize->authorizationRequest($hash_in);
+			$message= XmlParser::getAttribute($authorizationResponse,'litleOnlineResponse','message');
+			$response = XmlParser::getNode($authorizationResponse,'response');
+			$authMessage = XmlParser::getNode($authorizationResponse,'message');
+			$this->request->data['Auth']['message'] = $message;
+			$this->request->data['Auth']['response'] = $response;
+			$this->request->data['Auth']['authMessage'] = $authMessage;
+			
 			$this->Auth->create();
+			
 			if ($this->Auth->save($this->request->data)) {
 				
-			$hash_in = array(
-			'orderId'=> '4',
-			'amount'=>$this->data['Auth']['amount'],
-			'orderSource'=>'ecommerce',
-			'billToAddress'=>array(
-					'name'=>$this->data['Auth']['name'],
-					'addressLine1'=>$this->data['Auth']['address1'],
-					'city'=>$this->data['Auth']['city'],
-					'state'=>$this->data['Auth']['state'],
-					'country'=>$this->data['Auth']['country'],
-					'zip'=>$this->data['Auth']['zip'],
-					'email'=>$this->data['Auth']['email']),
-			'card'=> array(
-					'type'=>$this->data['Auth']['type'],
-					'number'=>$this->data['Auth']['number'],
-					'expDate'=>$this->data['Auth']['expDate'],
-					'cardValidationNum'=>$this->data['Auth']['cardValidationNum']));
-			$initilaize = &new LitleOnlineRequest();
-			$authorizationResponse = $initilaize->authorizationRequest($hash_in);
-			$message= XmlParser::getAttribute($authorizationResponse,'litleOnlineResponse','message');
-			echo $message;
-				$this->Session->setFlash(__('The auth has been saved'));
+				$this->Session->setFlash(__($message));
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The auth could not be saved. Please, try again.'));
@@ -87,7 +95,29 @@ class AuthsController extends AppController {
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Auth->save($this->request->data)) {
-				$this->Session->setFlash(__('The auth has been saved'));
+				
+				$hash_in = array(
+							'orderId'=> '4',
+							'amount'=>$this->data['Auth']['amount'],
+							'orderSource'=>'ecommerce',
+							'billToAddress'=>array(
+									'name'=>$this->data['Auth']['name'],
+									'addressLine1'=>$this->data['Auth']['address1'],
+									'city'=>$this->data['Auth']['city'],
+									'state'=>$this->data['Auth']['state'],
+									'country'=>$this->data['Auth']['country'],
+									'zip'=>$this->data['Auth']['zip'],
+									'email'=>$this->data['Auth']['email']),
+							'card'=> array(
+									'type'=>$this->data['Auth']['type'],
+									'number'=>$this->data['Auth']['number'],
+									'expDate'=>$this->data['Auth']['expDate'],
+									'cardValidationNum'=>$this->data['Auth']['cardValidationNum']));
+				$initilaize = &new LitleOnlineRequest();
+				@$authorizationResponse = $initilaize->authorizationRequest($hash_in);
+				$message= XmlParser::getAttribute($authorizationResponse,'litleOnlineResponse','message');
+				$this->Session->setFlash(__($message));
+		
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The auth could not be saved. Please, try again.'));

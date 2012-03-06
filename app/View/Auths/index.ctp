@@ -15,6 +15,9 @@
 			<th><?php echo $this->Paginator->sort('expDate');?></th>
 			<th><?php echo $this->Paginator->sort('cardValidationNum');?></th>
 			<th><?php echo $this->Paginator->sort('id');?></th>
+			<th><?php echo $this->Paginator->sort('message');?></th>
+			<th><?php echo $this->Paginator->sort('response');?></th>
+			<th><?php echo $this->Paginator->sort('authMessage');?></th>
 			<th class="actions"><?php echo __('Actions');?></th>
 	</tr>
 	<?php
@@ -33,6 +36,9 @@
 		<td><?php echo h($auth['Auth']['expDate']); ?>&nbsp;</td>
 		<td><?php echo h($auth['Auth']['cardValidationNum']); ?>&nbsp;</td>
 		<td><?php echo h($auth['Auth']['id']); ?>&nbsp;</td>
+		<td><?php echo h($auth['Auth']['message']); ?>&nbsp;</td>
+		<td><?php echo h($auth['Auth']['response']); ?>&nbsp;</td>
+		<td><?php echo h($auth['Auth']['authMessage']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $auth['Auth']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $auth['Auth']['id'])); ?>
