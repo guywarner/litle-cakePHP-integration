@@ -81,6 +81,11 @@
 			<?php echo h($auth['Auth']['authMessage']); ?>
 			&nbsp;
 		</dd>
+		<dt><?php echo __('LitleTxnId'); ?></dt>
+		<dd>
+			<?php echo h($auth['Auth']['litleTxnId']); ?>
+			&nbsp;
+		</dd>
 	</dl>
 </div>
 <div class="actions">

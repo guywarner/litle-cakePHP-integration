@@ -19,6 +19,7 @@
 		echo $this->Form->input('message');
 		echo $this->Form->input('response');
 		echo $this->Form->input('authMessage');
+		echo $this->Form->input('litleTxnId');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit'));?>
