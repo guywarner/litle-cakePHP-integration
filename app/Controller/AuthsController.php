@@ -10,6 +10,24 @@ App::uses('AppController', 'Controller');
  */
 class AuthsController extends AppController {
 
+	
+	private function purgeNull($data){
+	
+		foreach($data as $key => $value)
+		{
+			if ((is_string($value)) || (is_numeric($value)))
+			{
+				$hash_out[$key] = $data[$key];
+			}
+			elseif(is_array($value))
+			{
+	
+				AuthsController::purgeNull($value);
+			}
+				
+		}
+		return $hash_out;
+	}
 
 /**
  * index method
@@ -61,6 +79,9 @@ class AuthsController extends AppController {
 								'number'=>$this->data['Auth']['number'],
 								'expDate'=>$this->data['Auth']['expDate'],
 								'cardValidationNum'=>$this->data['Auth']['cardValidationNum']));
+			
+			$hash_in = AuthsController::purgeNull($hash_in);
+			
 			$initilaize = &new LitleOnlineRequest();
 			@$authorizationResponse = $initilaize->authorizationRequest($hash_in);
 			$message= XmlParser::getAttribute($authorizationResponse,'litleOnlineResponse','message');
