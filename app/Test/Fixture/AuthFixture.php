@@ -1,5 +1,5 @@
 <?php
-/* Auth Fixture generated on: 2012-03-06 21:35:16 : 1331069716 */
+/* Auth Fixture generated on: 2012-03-08 19:24:15 : 1331234655 */
 
 /**
  * AuthFixture
@@ -35,6 +35,10 @@ class AuthFixture extends CakeTestFixture {
 		'message' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 200, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'charset' => 'latin1'),
 		'response' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 20, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'charset' => 'latin1'),
 		'authMessage' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 20, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'charset' => 'latin1'),
+		'litleTxnId' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 20, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'charset' => 'latin1'),
+		'captureAmount' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 20, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'charset' => 'latin1'),
+		'captureLitleTxnId' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 50, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'charset' => 'latin1'),
+		'captureMessage' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 50, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'charset' => 'latin1'),
 		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1)),
 		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'MyISAM')
 	);
@@ -61,7 +65,11 @@ class AuthFixture extends CakeTestFixture {
 			'id' => 1,
 			'message' => 'Lorem ipsum dolor sit amet',
 			'response' => 'Lorem ipsum dolor ',
-			'authMessage' => 'Lorem ipsum dolor '
+			'authMessage' => 'Lorem ipsum dolor ',
+			'litleTxnId' => 'Lorem ipsum dolor ',
+			'captureAmount' => 'Lorem ipsum dolor ',
+			'captureLitleTxnId' => 'Lorem ipsum dolor sit amet',
+			'captureMessage' => 'Lorem ipsum dolor sit amet'
 		),
 	);
 }

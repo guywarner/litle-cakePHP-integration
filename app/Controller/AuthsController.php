@@ -149,7 +149,7 @@ class AuthsController extends AppController {
 									'cardValidationNum'=>$this->data['Auth']['cardValidationNum']));
 				$initilaize = &new LitleOnlineRequest();
 				@$authorizationResponse = $initilaize->authorizationRequest($hash_in);
-				$message= XmlParser::getAttribute($authorizationResponse,'litleOnlineResponse','message');
+				//$message= XmlParser::getAttribute($authorizationResponse,'litleOnlineResponse','message');
 				$this->Session->setFlash(__($message));
 		
 				$this->redirect(array('action' => 'index'));
@@ -161,25 +161,60 @@ class AuthsController extends AppController {
 		}
 	}
 	
+	
 	public function capture($id = null) {
 		$this->Auth->id = $id;
 		if (!$this->Auth->exists()) {
 			throw new NotFoundException(__('Invalid auth'));
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
+			
+			$hash_in = array('orderId'=> '4',
+										'litleTxnId'=>$this->Auth->field('litleTxnId'),
+										'amount'=>$this->data['Auth']['captureAmount'],
+										'orderSource'=>'ecommerce');
+			$initilaize = &new LitleOnlineRequest();
+			@$captureResponse = $initilaize->captureRequest($hash_in);
+			$captureMessage= XmlParser::getNode($captureResponse,'message');
+			$captureLitleTxnId = XmlParser::getNode($captureResponse,'litleTxnId');
+			$message= XmlParser::getAttribute($captureResponse,'litleOnlineResponse','message');
+			
+			$this->request->data['Auth']['message'] = $message;
+			$this->request->data['Auth']['captureMessage'] = $captureMessage;
+			$this->request->data['Auth']['captureLitleTxnId'] = $captureLitleTxnId;
+			
+			//$this->Auth->create();
+			
 			if ($this->Auth->save($this->request->data)) {
 				
-				//$this->set('auth', $this->Auth->read(null, $id));
-	
-				$hash_in = array('orderId'=> '4',
-							'litleTxnId'=>$this->Auth->field('litleTxnId'),
-							'amount'=>$this->data['Auth']['amount'],
-							'orderSource'=>'ecommerce');
-				$initilaize = &new LitleOnlineRequest();
-				@$captureResponse = $initilaize->captureRequest($hash_in);
-				$captureMessage= XmlParser::getNode($captureResponse,'message');
-				//$captureMessage= XmlParser::getAttribute($captureResponse,'litleOnlineResponse','message');
 				$this->Session->setFlash(__($captureMessage));
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The auth could not be saved. Please, try again.'));
+			}
+		} else {
+			$this->request->data = $this->Auth->read(null, $id);
+		}
+	}
+	
+	public function credit($id = null) {
+		$this->Auth->id = $id;
+		if (!$this->Auth->exists()) {
+			throw new NotFoundException(__('Invalid auth'));
+		}
+		if ($this->request->is('post') || $this->request->is('put')) {
+			if ($this->Auth->save($this->request->data)) {
+	
+	
+				$hash_in = array(
+								'litleTxnId'=>$this->Auth->field('captureLitleTxnId'),
+								'amount'=>$this->data['Auth']['creditAmount']
+								);
+				$initilaize = &new LitleOnlineRequest();
+				@$creditResponse = $initilaize->creditRequest($hash_in);
+				$creditMessage= XmlParser::getNode($creditResponse,'message');
+				//$captureMessage= XmlParser::getAttribute($captureResponse,'litleOnlineResponse','message');
+				$this->Session->setFlash(__($creditMessage));
 	
 				$this->redirect(array('action' => 'index'));
 			} else {

@@ -20,6 +20,9 @@
 		echo $this->Form->input('response');
 		echo $this->Form->input('authMessage');
 		echo $this->Form->input('litleTxnId');
+		echo $this->Form->input('captureAmount');
+		echo $this->Form->input('captureLitleTxnId');
+		echo $this->Form->input('captureMessage');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit'));?>

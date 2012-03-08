@@ -86,6 +86,21 @@
 			<?php echo h($auth['Auth']['litleTxnId']); ?>
 			&nbsp;
 		</dd>
+		<dt><?php echo __('CaptureAmount'); ?></dt>
+		<dd>
+			<?php echo h($auth['Auth']['captureAmount']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('CaptureLitleTxnId'); ?></dt>
+		<dd>
+			<?php echo h($auth['Auth']['captureLitleTxnId']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('CaptureMessage'); ?></dt>
+		<dd>
+			<?php echo h($auth['Auth']['captureMessage']); ?>
+			&nbsp;
+		</dd>
 	</dl>
 </div>
 <div class="actions">

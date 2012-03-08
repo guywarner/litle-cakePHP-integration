@@ -28,8 +28,8 @@ class Obj2xml {
 	{
 		$config= Obj2xml::getConfig($hash_config);
 		$xml = simplexml_load_string("<?xml version='1.0' encoding='utf-8'?><$rootNodeName />");
-		$xml-> addAttribute('version',$config["version"]);
 		$xml-> addAttribute('merchantId',$config["merchantId"]);
+		$xml-> addAttribute('version',$config["version"]);
 		$xml-> addAttribute('xmlns:xmlns','http://www.litle.com/schema');// does not show up on browser docs
 		$authentication = $xml->addChild('authentication');
 		$authentication->addChild('user',$config["user"]);
@@ -51,7 +51,7 @@ class Obj2xml {
 			if ($value == "REQUIRED"){
 				throw new Exception("Missing Required Field: /$key/");
 			}
-			elseif ((is_string($value)) || is_numeric($value)) {
+			elseif (((is_string($value)) || is_numeric($value))) {
 				$transacType->addChild($key,$value);
 			}
 			elseif(is_array($value))
