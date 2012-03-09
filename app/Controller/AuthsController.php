@@ -203,18 +203,62 @@ class AuthsController extends AppController {
 			throw new NotFoundException(__('Invalid auth'));
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
+			
+			$hash_in = array(
+											'litleTxnId'=>$this->Auth->field('captureLitleTxnId'),
+											'amount'=>$this->data['Auth']['creditAmount']
+			);
+			$initilaize = &new LitleOnlineRequest();
+			@$creditResponse = $initilaize->creditRequest($hash_in);
+			$creditMessage= XmlParser::getNode($creditResponse,'message');
+			$creditLitleTxnId = XmlParser::getNode($creditResponse,'litleTxnId');
+			$creditMessage= XmlParser::getNode($creditResponse,'message');
+			//$captureMessage= XmlParser::getAttribute($captureResponse,'litleOnlineResponse','message');
+			$this->request->data['Auth']['message'] = $message;
+			$this->request->data['Auth']['creditMessage'] = $creditMessage;
+			$this->request->data['Auth']['creditLitleTxnId'] = $creditLitleTxnId;
+			
 			if ($this->Auth->save($this->request->data)) {
 	
-	
-				$hash_in = array(
-								'litleTxnId'=>$this->Auth->field('captureLitleTxnId'),
-								'amount'=>$this->data['Auth']['creditAmount']
-								);
-				$initilaize = &new LitleOnlineRequest();
-				@$creditResponse = $initilaize->creditRequest($hash_in);
-				$creditMessage= XmlParser::getNode($creditResponse,'message');
-				//$captureMessage= XmlParser::getAttribute($captureResponse,'litleOnlineResponse','message');
 				$this->Session->setFlash(__($creditMessage));
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The auth could not be saved. Please, try again.'));
+			}
+		} else {
+			$this->request->data = $this->Auth->read(null, $id);
+		}
+	}
+	
+	public function void($id = null) {
+		$this->Auth->id = $id;
+		if (!$this->Auth->exists()) {
+			throw new NotFoundException(__('Invalid auth'));
+		}
+		if ($this->request->is('post') || $this->request->is('put')) {
+			
+			if ($this->data['Auth']['voidType'] == 'capture'){
+				$voidLitleTxnId = $this->Auth->field('captureLitleTxnId');
+			}
+			elseif($this->data['Auth']['voidType'] == 'capture'){ 
+				$voidLitleTxnId = $this->Auth->field('creditLitleTxnId');
+			}
+			else{
+				$this->Session->setFlash(__('The transaction could not be voided. Please, try again.'));
+				$voidLitleTxnId = 123;
+			}
+			
+			$hash_in = array(
+												'litleTxnId'=>$voidLitleTxnId
+			);
+			$initilaize = &new LitleOnlineRequest();
+			@$voidResponse = $initilaize->voidRequest($hash_in);
+			$voidMessage= XmlParser::getNode($voidResponse,'message');
+			//$captureMessage= XmlParser::getAttribute($captureResponse,'litleOnlineResponse','message');
+			
+			if ($this->Auth->save($this->request->data)) {
+	
+				$this->Session->setFlash(__($voidMessage));
 	
 				$this->redirect(array('action' => 'index'));
 			} else {
