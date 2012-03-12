@@ -100,20 +100,20 @@ class AuthsController extends AppController {
 			
 			$initilaize = &new LitleOnlineRequest();
 			@$authorizationResponse = $initilaize->authorizationRequest($hash_out);
-// 			$message= XmlParser::getAttribute($authorizationResponse,'litleOnlineResponse','message');
-// 			$response = XmlParser::getNode($authorizationResponse,'response');
-// 			$authMessage = XmlParser::getNode($authorizationResponse,'message');
-// 			$litleTxnId = XmlParser::getNode($authorizationResponse,'litleTxnId');
-// 			$this->request->data['Auth']['message'] = $message;
-// 			$this->request->data['Auth']['response'] = $response;
-// 			$this->request->data['Auth']['authMessage'] = $authMessage;
-// 			$this->request->data['Auth']['litleTxnId'] = $litleTxnId;
+			$message= XmlParser::getAttribute($authorizationResponse,'litleOnlineResponse','message');
+			$response = XmlParser::getNode($authorizationResponse,'response');
+			$authMessage = XmlParser::getNode($authorizationResponse,'message');
+			$litleTxnId = XmlParser::getNode($authorizationResponse,'litleTxnId');
+			$this->request->data['Auth']['message'] = $message;
+			$this->request->data['Auth']['response'] = $response;
+			$this->request->data['Auth']['authMessage'] = $authMessage;
+			$this->request->data['Auth']['litleTxnId'] = $litleTxnId;
 			
 			$this->Auth->create();
 			
 			if ($this->Auth->save($this->request->data)) {
 				
-				$this->Session->setFlash(__($authorizationResponse));
+				$this->Session->setFlash(__($message));
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The auth could not be saved. Please, try again.'));
