@@ -1,6 +1,6 @@
 #App sql generated on: 2012-03-12 17:29:08 : 1331573348
 
-DROP TABLE IF EXISTS `auth`;
+DROP TABLE IF EXISTS `token`;
 
 
 CREATE TABLE `token` (
@@ -9,8 +9,8 @@ CREATE TABLE `token` (
 	`id` int(10) NOT NULL AUTO_INCREMENT COMMENT '',
 	`message` varchar(200) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL COMMENT '',
 	`response` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL COMMENT '',
-	`tokenMessage` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL COMMENT '',
-	`token` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL COMMENT '',
+	`tokenMessage` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL COMMENT '',
+	`litleToken` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL COMMENT '',
 	`saleAmount` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL COMMENT '',
 	`name` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL COMMENT '',
 	`type` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL COMMENT '',

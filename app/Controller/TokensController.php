@@ -87,18 +87,18 @@ class TokensController extends AppController {
 			@$tokenResponse = $initilaize->registerTokenRequest($hash_out);
 			$message= XmlParser::getAttribute($tokenResponse,'litleOnlineResponse','message');
 			$response = XmlParser::getNode($tokenResponse,'response');
-			$authMessage = XmlParser::getNode($tokenResponse,'message');
-			$litleTxnId = XmlParser::getNode($tokenResponse,'litleTxnId');
-			//$this->request->data['Auth']['message'] = $message;
-			//$this->request->data['Auth']['response'] = $response;
-			//$this->request->data['Auth']['authMessage'] = $authMessage;
-			//$this->request->data['Auth']['litleTxnId'] = $litleTxnId;
+			$tokenMessage = XmlParser::getNode($tokenResponse,'message');
+			$litleToken = XmlParser::getNode($tokenResponse,'litleToken');
+			$this->request->data['Token']['message'] = $message;
+			$this->request->data['Token']['response'] = $response;
+			$this->request->data['Token']['tokenMessage'] = $tokenMessage;
+			$this->request->data['Token']['litleToken'] = $litleToken;
 			
 			$this->Token->create();
 			
 			if ($this->Token->save($this->request->data)) {
 				
-				$this->Session->setFlash(__($message));
+				$this->Session->setFlash(__($tokenMessage));
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The auth could not be saved. Please, try again.'));

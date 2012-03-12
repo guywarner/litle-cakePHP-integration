@@ -2,30 +2,23 @@
 	<h2><?php echo __('Tokenized Transaction Homepage');?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
-			<th><?php echo $this->Paginator->sort('amount');?></th>
+			<th><?php echo $this->Paginator->sort('number');?></th>
 			<th><?php echo $this->Paginator->sort('id');?></th>
 			<th><?php echo $this->Paginator->sort('message');?></th>
 			<th><?php echo $this->Paginator->sort('response');?></th>
-			<th><?php echo $this->Paginator->sort('authMessage');?></th>
-			<th><?php echo $this->Paginator->sort('litleTxnId');?></th>
-			<th><?php echo $this->Paginator->sort('captureAmount');?></th>
-			<th><?php echo $this->Paginator->sort('captureLitleTxnId');?></th>
-			<th><?php echo $this->Paginator->sort('captureMessage');?></th>
+			<th><?php echo $this->Paginator->sort('tokenMessage');?></th>
+			<th><?php echo $this->Paginator->sort('litleToken');?></th>
 			<th class="actions"><?php echo __('Actions');?></th>
 	</tr>
 	<?php
 	foreach ($tokens as $token): ?>
 	<tr>
-		<td><?php echo h($token['Token']['amount']); ?>&nbsp;</td>
-
+		<td><?php echo h($token['Token']['number']); ?>&nbsp;</td>
 		<td><?php echo h($token['Token']['id']); ?>&nbsp;</td>
 		<td><?php echo h($token['Token']['message']); ?>&nbsp;</td>
 		<td><?php echo h($token['Token']['response']); ?>&nbsp;</td>
-		<td><?php echo h($token['Token']['authMessage']); ?>&nbsp;</td>
-		<td><?php echo h($token['Token']['litleTxnId']); ?>&nbsp;</td>
-		<td><?php echo h($token['Token']['captureAmount']); ?>&nbsp;</td>
-		<td><?php echo h($token['Token']['captureLitleTxnId']); ?>&nbsp;</td>
-		<td><?php echo h($token['Token']['captureMessage']); ?>&nbsp;</td>
+		<td><?php echo h($token['Token']['tokenMessage']); ?>&nbsp;</td>
+		<td><?php echo h($token['Token']['litleToken']); ?>&nbsp;</td>
 		<td class="actions">
 		
 		
