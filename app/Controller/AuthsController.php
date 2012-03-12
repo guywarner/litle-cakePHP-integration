@@ -11,11 +11,11 @@ App::uses('AppController', 'Controller');
 class AuthsController extends AppController {
 
 	
-	private function purgeNull($data_in, $data_out=NULL){
+	public function purgeNull($data_in, $data_out=NULL){
 	
 		foreach($data_in as $key => $value)
 		{
-			if ((!(!$value)) && (!is_array($value)))//is_string($value) || is_numeric($value))
+			if (($value != NULL) && (!is_array($value)))
 			{
 				$data_out[$key] = $data_in[$key];
 			}
@@ -26,10 +26,7 @@ class AuthsController extends AppController {
 					
 					$notEmpty = $notEmpty || $value2;
 				}
-				//$this->Session->setFlash(__($notEmpty));
-					
 					if ($notEmpty){
-						//$this->Session->setFlash(__('notempty'));
 						$data_out[$key] = $data_in[$key];
 						AuthsController::purgeNull($value, $data_out[$key]);
 					}
@@ -38,6 +35,14 @@ class AuthsController extends AppController {
 				
 		}
 		return $data_out;
+	}
+	
+	function getFormData($string){
+		if ($this->data['Auth'][$string] == '' || NULL){
+			return NULL;
+		}else{
+			return $this->data['Auth'][$string];
+		}
 	}
 
 /**
@@ -78,37 +83,37 @@ class AuthsController extends AppController {
 						'amount'=>$this->data['Auth']['amount'],
 						'orderSource'=>'ecommerce',
 						'billToAddress'=>array(
-								'name'=>$this->data['Auth']['name'],
-								'addressLine1'=>$this->data['Auth']['address1'],
-								'city'=>$this->data['Auth']['city'],
-								'state'=>$this->data['Auth']['state'],
-								'country'=>$this->data['Auth']['country'],
-								'zip'=>$this->data['Auth']['zip'],
-								'email'=>$this->data['Auth']['email']),
+								'name'=>AuthsController::getFormData('name'),
+								'addressLine1'=>AuthsController::getFormData('address1'),
+								'city'=>AuthsController::getFormData('city'),
+								'state'=>AuthsController::getFormData('state'),
+								'country'=>AuthsController::getFormData('country'),
+								'zip'=>AuthsController::getFormData('zip'),
+								'email'=>AuthsController::getFormData('email')),
 						'card'=> array(
-								'type'=>$this->data['Auth']['type'],
-								'number'=>$this->data['Auth']['number'],
-								'expDate'=>$this->data['Auth']['expDate'],
-								'cardValidationNum'=>$this->data['Auth']['cardValidationNum']));
+								'type'=>AuthsController::getFormData('type'),
+								'number'=>AuthsController::getFormData('number'),
+								'expDate'=>AuthsController::getFormData('expDate'),
+								'cardValidationNum'=>AuthsController::getFormData('cardValidationNum')));
 			
 			$hash_out = AuthsController::purgeNull($hash_in);
 			
 			$initilaize = &new LitleOnlineRequest();
 			@$authorizationResponse = $initilaize->authorizationRequest($hash_out);
-			$message= XmlParser::getAttribute($authorizationResponse,'litleOnlineResponse','message');
-			$response = XmlParser::getNode($authorizationResponse,'response');
-			$authMessage = XmlParser::getNode($authorizationResponse,'message');
-			$litleTxnId = XmlParser::getNode($authorizationResponse,'litleTxnId');
-			$this->request->data['Auth']['message'] = $message;
-			$this->request->data['Auth']['response'] = $response;
-			$this->request->data['Auth']['authMessage'] = $authMessage;
-			$this->request->data['Auth']['litleTxnId'] = $litleTxnId;
+// 			$message= XmlParser::getAttribute($authorizationResponse,'litleOnlineResponse','message');
+// 			$response = XmlParser::getNode($authorizationResponse,'response');
+// 			$authMessage = XmlParser::getNode($authorizationResponse,'message');
+// 			$litleTxnId = XmlParser::getNode($authorizationResponse,'litleTxnId');
+// 			$this->request->data['Auth']['message'] = $message;
+// 			$this->request->data['Auth']['response'] = $response;
+// 			$this->request->data['Auth']['authMessage'] = $authMessage;
+// 			$this->request->data['Auth']['litleTxnId'] = $litleTxnId;
 			
 			$this->Auth->create();
 			
 			if ($this->Auth->save($this->request->data)) {
 				
-				$this->Session->setFlash(__($message));
+				$this->Session->setFlash(__($authorizationResponse));
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The auth could not be saved. Please, try again.'));
