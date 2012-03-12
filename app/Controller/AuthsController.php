@@ -245,7 +245,7 @@ class AuthsController extends AppController {
 			if ($this->data['Auth']['voidType'] == 'capture'){
 				$voidLitleTxnId = $this->Auth->field('captureLitleTxnId');
 			}
-			elseif($this->data['Auth']['voidType'] == 'capture'){ 
+			elseif($this->data['Auth']['voidType'] == 'credit'){ 
 				$voidLitleTxnId = $this->Auth->field('creditLitleTxnId');
 			}
 			else{
