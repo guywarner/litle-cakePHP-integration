@@ -1,5 +1,5 @@
 <?php
-/* Auth Test cases generated on: 2012-03-08 19:24:16 : 1331234656*/
+/* Auth Test cases generated on: 2012-03-12 16:17:26 : 1331569046*/
 App::uses('Auth', 'Model');
 
 /**
