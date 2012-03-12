@@ -8,6 +8,8 @@
 			<th><?php echo $this->Paginator->sort('response');?></th>
 			<th><?php echo $this->Paginator->sort('tokenMessage');?></th>
 			<th><?php echo $this->Paginator->sort('litleToken');?></th>
+			<th><?php echo $this->Paginator->sort('saleAmount');?></th>
+			<th><?php echo $this->Paginator->sort('saleMessage');?></th>
 			<th class="actions"><?php echo __('Actions');?></th>
 	</tr>
 	<?php
@@ -19,9 +21,11 @@
 		<td><?php echo h($token['Token']['response']); ?>&nbsp;</td>
 		<td><?php echo h($token['Token']['tokenMessage']); ?>&nbsp;</td>
 		<td><?php echo h($token['Token']['litleToken']); ?>&nbsp;</td>
+		<td><?php echo h($token['Token']['saleAmount']); ?>&nbsp;</td>
+		<td><?php echo h($token['Token']['saleMessage']); ?>&nbsp;</td>
 		<td class="actions">
 		
-		
+			<?php echo $this->Html->link(__('Sale'), array('action' => 'sale', $token['Token']['id'])); ?>
 			<?php echo $this->Html->link(__('Credit'), array('action' => 'credit', $token['Token']['id'])); ?>
 			<?php echo $this->Html->link(__('Void'), array('action' => 'void', $token['Token']['id'])); ?>
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $token['Token']['id'])); ?>

@@ -1,9 +1,9 @@
-<div class="Token form">
+<div class="Sale form">
 <?php echo $this->Form->create('Token');?>
 	<fieldset>
-		<legend><?php echo __('Add Register Token Request'); ?></legend>
+		<legend><?php echo __('Sale Transaction Using Previously Registered Token'); ?></legend>
 	<?php
-		echo $this->Form->input('amount');
+		echo $this->Form->input('saleAmount');
 		echo $this->Form->input('name');
 		echo $this->Form->input('address1');
 		echo $this->Form->input('city');
@@ -12,16 +12,8 @@
 		echo $this->Form->input('zip');
 		echo $this->Form->input('email');
 		echo $this->Form->input('type');
-		echo $this->Form->input('number');
-		echo $this->Form->input('expDate');
 		echo $this->Form->input('cardValidationNum');
-		echo $this->Form->input('message');
-		echo $this->Form->input('response');
-		echo $this->Form->input('authMessage');
-		echo $this->Form->input('litleTxnId');
-		echo $this->Form->input('captureAmount');
-		echo $this->Form->input('captureLitleTxnId');
-		echo $this->Form->input('captureMessage');
+		echo $this->Form->input('expDate');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit'));?>
