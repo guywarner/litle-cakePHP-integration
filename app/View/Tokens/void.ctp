@@ -1,5 +1,5 @@
-<div class="auths form">
-<?php echo $this->Form->create('Auth');?>
+<div class="Tokens form">
+<?php echo $this->Form->create('Token');?>
 	<fieldset>
 		<legend><?php echo __('CAPTURE'); ?></legend>
 	<?php

@@ -10,6 +10,10 @@
 			<th><?php echo $this->Paginator->sort('litleToken');?></th>
 			<th><?php echo $this->Paginator->sort('saleAmount');?></th>
 			<th><?php echo $this->Paginator->sort('saleMessage');?></th>
+			<th><?php echo $this->Paginator->sort('saleLitleTxnId');?></th>
+			<th><?php echo $this->Paginator->sort('creditAmount');?></th>
+			<th><?php echo $this->Paginator->sort('creditMessage');?></th>
+			<th><?php echo $this->Paginator->sort('voidMessage');?></th>
 			<th class="actions"><?php echo __('Actions');?></th>
 	</tr>
 	<?php
@@ -23,6 +27,10 @@
 		<td><?php echo h($token['Token']['litleToken']); ?>&nbsp;</td>
 		<td><?php echo h($token['Token']['saleAmount']); ?>&nbsp;</td>
 		<td><?php echo h($token['Token']['saleMessage']); ?>&nbsp;</td>
+		<td><?php echo h($token['Token']['saleLitleTxnId']); ?>&nbsp;</td>
+		<td><?php echo h($token['Token']['creditAmount']); ?>&nbsp;</td>
+		<td><?php echo h($token['Token']['creditMessage']); ?>&nbsp;</td>
+		<td><?php echo h($token['Token']['voidMessage']); ?>&nbsp;</td>
 		<td class="actions">
 		
 			<?php echo $this->Html->link(__('Sale'), array('action' => 'sale', $token['Token']['id'])); ?>

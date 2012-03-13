@@ -139,7 +139,7 @@ class TokensController extends AppController {
 			$litleTxnId = XmlParser::getNode($saleResponse,'litleTxnId');
 			$this->request->data['Token']['message'] = $message;
 			$this->request->data['Token']['saleMessage'] = $saleMessage;
-			$this->request->data['Token']['saleLitletxnId'] = $litleTxnId;
+			$this->request->data['Token']['saleLitleTxnId'] = $litleTxnId;
 				
 			if ($this->Token->save($this->request->data)) {
 	
@@ -232,50 +232,49 @@ class TokensController extends AppController {
 // 	}
 	
 	public function credit($id = null) {
-		$this->Auth->id = $id;
-		if (!$this->Auth->exists()) {
-			throw new NotFoundException(__('Invalid auth'));
+		$this->Token->id = $id;
+		if (!$this->Token->exists()) {
+			throw new NotFoundException(__('Invalid Token'));
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
 			
 			$hash_in = array(
-											'litleTxnId'=>$this->Auth->field('captureLitleTxnId'),
-											'amount'=>$this->data['Auth']['creditAmount']
+							'litleTxnId'=>$this->Token->field('saleLitleTxnId'),
+							'amount'=>$this->data['Token']['creditAmount']
 			);
 			$initilaize = &new LitleOnlineRequest();
 			@$creditResponse = $initilaize->creditRequest($hash_in);
-			$creditMessage= XmlParser::getNode($creditResponse,'message');
+			$message= XmlParser::getAttribute($creditResponse,'litleOnlineResponse','message');
 			$creditLitleTxnId = XmlParser::getNode($creditResponse,'litleTxnId');
 			$creditMessage= XmlParser::getNode($creditResponse,'message');
-			//$captureMessage= XmlParser::getAttribute($captureResponse,'litleOnlineResponse','message');
-			$this->request->data['Auth']['message'] = $message;
-			$this->request->data['Auth']['creditMessage'] = $creditMessage;
-			$this->request->data['Auth']['creditLitleTxnId'] = $creditLitleTxnId;
+			$this->request->data['Token']['message'] = $message;
+			$this->request->data['Token']['creditMessage'] = $creditMessage;
+			$this->request->data['Token']['creditLitleTxnId'] = $creditLitleTxnId;
 			
-			if ($this->Auth->save($this->request->data)) {
+			if ($this->Token->save($this->request->data)) {
 	
-				$this->Session->setFlash(__($creditMessage));
+				$this->Session->setFlash(__($message));
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The auth could not be saved. Please, try again.'));
 			}
 		} else {
-			$this->request->data = $this->Auth->read(null, $id);
+			$this->request->data = $this->Token->read(null, $id);
 		}
 	}
 	
 	public function void($id = null) {
-		$this->Auth->id = $id;
-		if (!$this->Auth->exists()) {
-			throw new NotFoundException(__('Invalid auth'));
+		$this->Token->id = $id;
+		if (!$this->Token->exists()) {
+			throw new NotFoundException(__('Invalid Token'));
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
 			
-			if ($this->data['Auth']['voidType'] == 'capture'){
-				$voidLitleTxnId = $this->Auth->field('captureLitleTxnId');
+			if ($this->data['Token']['voidType'] == 'sale'){
+				$voidLitleTxnId = $this->Token->field('saleLitleTxnId');
 			}
-			elseif($this->data['Auth']['voidType'] == 'credit'){ 
-				$voidLitleTxnId = $this->Auth->field('creditLitleTxnId');
+			elseif($this->data['Token']['voidType'] == 'credit'){ 
+				$voidLitleTxnId = $this->Token->field('creditLitleTxnId');
 			}
 			else{
 				$this->Session->setFlash(__('The transaction could not be voided. Please, try again.'));
@@ -283,23 +282,23 @@ class TokensController extends AppController {
 			}
 			
 			$hash_in = array(
-												'litleTxnId'=>$voidLitleTxnId
+					'litleTxnId'=>$voidLitleTxnId
 			);
 			$initilaize = &new LitleOnlineRequest();
 			@$voidResponse = $initilaize->voidRequest($hash_in);
 			$voidMessage= XmlParser::getNode($voidResponse,'message');
-			//$captureMessage= XmlParser::getAttribute($captureResponse,'litleOnlineResponse','message');
-			
-			if ($this->Auth->save($this->request->data)) {
+			$message= XmlParser::getAttribute($voidResponse,'litleOnlineResponse','message');
+			$this->request->data['Token']['voidMessage'] = $voidMessage;
+			if ($this->Token->save($this->request->data)) {
 	
-				$this->Session->setFlash(__($voidMessage));
+				$this->Session->setFlash(__($message));
 	
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The auth could not be saved. Please, try again.'));
 			}
 		} else {
-			$this->request->data = $this->Auth->read(null, $id);
+			$this->request->data = $this->Token->read(null, $id);
 		}
 	}
 
