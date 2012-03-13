@@ -1,5 +1,5 @@
-<div class="auths form">
-<?php echo $this->Form->create('Auth');?>
+<div class="sales form">
+<?php echo $this->Form->create('Sale');?>
 	<fieldset>
 		<legend><?php echo __('CREDIT'); ?></legend>
 	<?php
@@ -12,6 +12,6 @@
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 
-		<li><?php echo $this->Html->link(__('List Auths'), array('action' => 'index'));?></li>
+		<li><?php echo $this->Html->link(__('List Sales'), array('action' => 'index'));?></li>
 	</ul>
 </div>
