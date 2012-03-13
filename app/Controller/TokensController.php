@@ -4,15 +4,15 @@ require_once realpath(dirname(__FILE__)) . '/../Lib/litle/LitleOnline.php';
 
 App::uses('AppController', 'Controller');
 /**
- * Auths Controller
+ * Tokens Controller
  *
- * @property Auth $Auth
+ * @property Token $Token
  */
 class TokensController extends AppController {
 
-	
+
 	public function purgeNull($data_in, $data_out=NULL){
-	
+
 		foreach($data_in as $key => $value)
 		{
 			if (($value != NULL) && (!is_array($value)))
@@ -23,20 +23,20 @@ class TokensController extends AppController {
 			{
 				$notEmpty = false;
 				foreach ($value as $key2 => $value2){
-					
+
 					$notEmpty = $notEmpty || $value2;
 				}
-					if ($notEmpty){
-						$data_out[$key] = $data_in[$key];
-						TokensController::purgeNull($value, $data_out[$key]);
-					}
-				
+				if ($notEmpty){
+					$data_out[$key] = $data_in[$key];
+					TokensController::purgeNull($value, $data_out[$key]);
+				}
+
 			}
-				
+
 		}
 		return $data_out;
 	}
-	
+
 	function getFormData($string){
 		if ($this->data['Token'][$string] == '' || NULL){
 			return NULL;
@@ -45,22 +45,22 @@ class TokensController extends AppController {
 		}
 	}
 
-/**
- * index method
- *
- * @return void
- */
+	/**
+	 * index method
+	 *
+	 *	 * @return void
+	 */
 	public function index() {
 		$this->Token->recursive = 0;
 		$this->set('tokens', $this->paginate());
 	}
 
-/**
- * view method
- *
- * @param string $id
- * @return void
- */
+	/**
+	 * view method
+	 *
+	 * @param string $id
+	 * @return void
+	 */
 	public function view($id = null) {
 		$this->Token->id = $id;
 		if (!$this->Token->exists()) {
@@ -69,20 +69,19 @@ class TokensController extends AppController {
 		$this->set('token', $this->Token->read(null, $id));
 	}
 
-/**
- * add method
- *
- * @return void
- */
+	/**
+	 * add method
+	 *registers a credit card number and returns a litleToken
+	 */
 	public function add() {
 		if ($this->request->is('post')) {
-			
+
 			$hash_in = array(
 						'orderId'=> '4',
 						'accountNumber'=>TokensController::getFormData('number'));
-			
+
 			$hash_out = TokensController::purgeNull($hash_in);
-			
+
 			$initilaize = &new LitleOnlineRequest();
 			@$tokenResponse = $initilaize->registerTokenRequest($hash_out);
 			$message= XmlParser::getAttribute($tokenResponse,'litleOnlineResponse','message');
@@ -93,25 +92,30 @@ class TokensController extends AppController {
 			$this->request->data['Token']['response'] = $response;
 			$this->request->data['Token']['tokenMessage'] = $tokenMessage;
 			$this->request->data['Token']['litleToken'] = $litleToken;
-			
+
 			$this->Token->create();
-			
+
 			if ($this->Token->save($this->request->data)) {
-				
-				$this->Session->setFlash(__($tokenMessage));
+
+				$this->Session->setFlash(__($message));
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The auth could not be saved. Please, try again.'));
 			}
 		}
 	}
-
- 	public function sale($id = null) {
+	/**
+	 * sale method
+	 *
+	 * @param string saleAmount, litleToken
+	 * @return saleMessage, saleLitleTxnId
+	 */
+	public function sale($id = null) {
 		if ($this->request->is('post')) {
 			$this->Token->id = $id;
-			 		if (!$this->Token->exists()) {
-			 			throw new NotFoundException(__('Invalid auth'));
-					}
+			if (!$this->Token->exists()) {
+				throw new NotFoundException(__('Invalid auth'));
+			}
 			$hash_in = array(
 							'orderId'=> '4',
 							'amount'=>$this->data['Token']['saleAmount'],
@@ -129,9 +133,9 @@ class TokensController extends AppController {
 									'expDate'=>TokensController::getFormData('expDate'),
 									'cardValidationNum'=>TokensController::getFormData('cardValidationNum'),
 									'type'=>TokensController::getFormData('type')));
-				
+
 			$hash_out = TokensController::purgeNull($hash_in);
-				
+
 			$initilaize = &new LitleOnlineRequest();
 			@$saleResponse = $initilaize->authorizationRequest($hash_out);
 			$message= XmlParser::getAttribute($saleResponse,'litleOnlineResponse','message');
@@ -140,104 +144,29 @@ class TokensController extends AppController {
 			$this->request->data['Token']['message'] = $message;
 			$this->request->data['Token']['saleMessage'] = $saleMessage;
 			$this->request->data['Token']['saleLitleTxnId'] = $litleTxnId;
-				
+
 			if ($this->Token->save($this->request->data)) {
-	
+
 				$this->Session->setFlash(__($message));
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The Token could not be saved. Please, try again.'));
 			}
 		}
- 	}
-/**
- * edit method
- *
- * @param string $id
- * @return void
- */
-// 	public function edit($id = null) {
-// 		$this->Auth->id = $id;
-// 		if (!$this->Auth->exists()) {
-// 			throw new NotFoundException(__('Invalid auth'));
-// 		}
-// 		if ($this->request->is('post') || $this->request->is('put')) {
-// 			if ($this->Auth->save($this->request->data)) {
-				
-// 				$hash_in = array(
-// 							'orderId'=> '4',
-// 							'amount'=>$this->data['Auth']['amount'],
-// 							'orderSource'=>'ecommerce',
-// 							'billToAddress'=>array(
-// 									'name'=>$this->data['Auth']['name'],
-// 									'addressLine1'=>$this->data['Auth']['address1'],
-// 									'city'=>$this->data['Auth']['city'],
-// 									'state'=>$this->data['Auth']['state'],
-// 									'country'=>$this->data['Auth']['country'],
-// 									'zip'=>$this->data['Auth']['zip'],
-// 									'email'=>$this->data['Auth']['email']),
-// 							'card'=> array(
-// 									'type'=>$this->data['Auth']['type'],
-// 									'number'=>$this->data['Auth']['number'],
-// 									'expDate'=>$this->data['Auth']['expDate'],
-// 									'cardValidationNum'=>$this->data['Auth']['cardValidationNum']));
-// 				$initilaize = &new LitleOnlineRequest();
-// 				@$authorizationResponse = $initilaize->authorizationRequest($hash_in);
-// 				//$message= XmlParser::getAttribute($authorizationResponse,'litleOnlineResponse','message');
-// 				$this->Session->setFlash(__($message));
-		
-// 				$this->redirect(array('action' => 'index'));
-// 			} else {
-// 				$this->Session->setFlash(__('The auth could not be saved. Please, try again.'));
-// 			}
-// 		} else {
-// 			$this->request->data = $this->Auth->read(null, $id);
-// 		}
-// 	}
-	
-	
-// 	public function capture($id = null) {
-// 		$this->Auth->id = $id;
-// 		if (!$this->Auth->exists()) {
-// 			throw new NotFoundException(__('Invalid auth'));
-// 		}
-// 		if ($this->request->is('post') || $this->request->is('put')) {
-			
-// 			$hash_in = array('orderId'=> '4',
-// 										'litleTxnId'=>$this->Auth->field('litleTxnId'),
-// 										'amount'=>$this->data['Auth']['captureAmount'],
-// 										'orderSource'=>'ecommerce');
-// 			$initilaize = &new LitleOnlineRequest();
-// 			@$captureResponse = $initilaize->captureRequest($hash_in);
-// 			$captureMessage= XmlParser::getNode($captureResponse,'message');
-// 			$captureLitleTxnId = XmlParser::getNode($captureResponse,'litleTxnId');
-// 			$message= XmlParser::getAttribute($captureResponse,'litleOnlineResponse','message');
-			
-// 			$this->request->data['Auth']['message'] = $message;
-// 			$this->request->data['Auth']['captureMessage'] = $captureMessage;
-// 			$this->request->data['Auth']['captureLitleTxnId'] = $captureLitleTxnId;
-			
-// 			//$this->Auth->create();
-			
-// 			if ($this->Auth->save($this->request->data)) {
-				
-// 				$this->Session->setFlash(__($captureMessage));
-// 				$this->redirect(array('action' => 'index'));
-// 			} else {
-// 				$this->Session->setFlash(__('The auth could not be saved. Please, try again.'));
-// 			}
-// 		} else {
-// 			$this->request->data = $this->Auth->read(null, $id);
-// 		}
-// 	}
-	
+	}
+	/**
+	 * credit method
+	 *
+	 * @param string creditAmount, saleLitleTxnId
+	 * @return creditMessage, creditLitleTxnId
+	 */
 	public function credit($id = null) {
 		$this->Token->id = $id;
 		if (!$this->Token->exists()) {
 			throw new NotFoundException(__('Invalid Token'));
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
-			
+
 			$hash_in = array(
 							'litleTxnId'=>$this->Token->field('saleLitleTxnId'),
 							'amount'=>$this->data['Token']['creditAmount']
@@ -250,49 +179,10 @@ class TokensController extends AppController {
 			$this->request->data['Token']['message'] = $message;
 			$this->request->data['Token']['creditMessage'] = $creditMessage;
 			$this->request->data['Token']['creditLitleTxnId'] = $creditLitleTxnId;
-			
+
 			if ($this->Token->save($this->request->data)) {
-	
+
 				$this->Session->setFlash(__($message));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The auth could not be saved. Please, try again.'));
-			}
-		} else {
-			$this->request->data = $this->Token->read(null, $id);
-		}
-	}
-	
-	public function void($id = null) {
-		$this->Token->id = $id;
-		if (!$this->Token->exists()) {
-			throw new NotFoundException(__('Invalid Token'));
-		}
-		if ($this->request->is('post') || $this->request->is('put')) {
-			
-			if ($this->data['Token']['voidType'] == 'sale'){
-				$voidLitleTxnId = $this->Token->field('saleLitleTxnId');
-			}
-			elseif($this->data['Token']['voidType'] == 'credit'){ 
-				$voidLitleTxnId = $this->Token->field('creditLitleTxnId');
-			}
-			else{
-				$this->Session->setFlash(__('The transaction could not be voided. Please, try again.'));
-				$voidLitleTxnId = 123;
-			}
-			
-			$hash_in = array(
-					'litleTxnId'=>$voidLitleTxnId
-			);
-			$initilaize = &new LitleOnlineRequest();
-			@$voidResponse = $initilaize->voidRequest($hash_in);
-			$voidMessage= XmlParser::getNode($voidResponse,'message');
-			$message= XmlParser::getAttribute($voidResponse,'litleOnlineResponse','message');
-			$this->request->data['Token']['voidMessage'] = $voidMessage;
-			if ($this->Token->save($this->request->data)) {
-	
-				$this->Session->setFlash(__($message));
-	
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The auth could not be saved. Please, try again.'));
@@ -302,12 +192,57 @@ class TokensController extends AppController {
 		}
 	}
 
-/**
- * delete method
- *
- * @param string $id
- * @return void
- */
+	/**
+	 * void method
+	 *
+	 * @param string voidType
+	 * @return voidMessage
+	 */
+	public function void($id = null) {
+		$this->Token->id = $id;
+		if (!$this->Token->exists()) {
+			throw new NotFoundException(__('Invalid Token'));
+		}
+		if ($this->request->is('post') || $this->request->is('put')) {
+
+			if ($this->data['Token']['voidType'] == 'sale'){
+				$voidLitleTxnId = $this->Token->field('saleLitleTxnId');
+			}
+			elseif($this->data['Token']['voidType'] == 'credit'){
+				$voidLitleTxnId = $this->Token->field('creditLitleTxnId');
+			}
+			else{
+				$this->Session->setFlash(__('The transaction could not be voided. Please, try again.'));
+				$voidLitleTxnId = 123;
+			}
+
+			$hash_in = array(
+					'litleTxnId'=>$voidLitleTxnId
+			);
+			$initilaize = &new LitleOnlineRequest();
+			@$voidResponse = $initilaize->voidRequest($hash_in);
+			$voidMessage= XmlParser::getNode($voidResponse,'message');
+			$message= XmlParser::getAttribute($voidResponse,'litleOnlineResponse','message');
+			$this->request->data['Token']['voidMessage'] = $voidMessage;
+			if ($this->Token->save($this->request->data)) {
+
+				$this->Session->setFlash(__($message));
+
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The auth could not be saved. Please, try again.'));
+			}
+		} else {
+			$this->request->data = $this->Token->read(null, $id);
+		}
+	}
+
+	/**
+	 * delete method
+	 *
+	 * @param string $id
+	 * @return void
+	 */
 	public function delete($id = null) {
 		if (!$this->request->is('post')) {
 			throw new MethodNotAllowedException();
