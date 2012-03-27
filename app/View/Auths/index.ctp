@@ -1,40 +1,40 @@
 <div class="auths index">
-	<h2><?php echo __('Auths');?></h2>
+	<h2><?php echo __('Authorization Transaction Cycle Homepage');?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
-			<th><?php echo $this->Paginator->sort('amount');?></th>
-			
-			<th><?php echo $this->Paginator->sort('id');?></th>
-			<th><?php echo $this->Paginator->sort('message');?></th>
-			<th><?php echo $this->Paginator->sort('response');?></th>
-			<th><?php echo $this->Paginator->sort('authMessage');?></th>
-			<th><?php echo $this->Paginator->sort('litleTxnId');?></th>
-			<th><?php echo $this->Paginator->sort('captureAmount');?></th>
-			<th><?php echo $this->Paginator->sort('captureLitleTxnId');?></th>
-			<th><?php echo $this->Paginator->sort('captureMessage');?></th>
-			<th class="actions"><?php echo __('Actions');?></th>
+			<th><div align="center"><?php echo $this->Paginator->sort('id');?></th></div>
+			<th><div align="center"><?php echo $this->Paginator->sort('litleTxnId');?></th></div>
+			<th><div align="center"><?php echo $this->Paginator->sort('amount');?></th></div>
+			<th><div align="center"><?php echo $this->Paginator->sort('message');?></th></div>
+			<th><div align="center"><?php echo $this->Paginator->sort('response');?></th></div>
+			<th><div align="center"><?php echo $this->Paginator->sort('Transaction Status');?></th></div>
+			<th class="actions"><div align="center"><?php echo __('Actions');?></th></div>
 	</tr>
 	<?php
 	foreach ($auths as $auth): ?>
 	<tr>
+	<td><?php echo h($auth['Auth']['id']); ?>&nbsp;</td>
+			<td><?php echo h($auth['Auth']['litleTxnId']); ?>&nbsp;</td>
 		<td><?php echo h($auth['Auth']['amount']); ?>&nbsp;</td>
-
-		<td><?php echo h($auth['Auth']['id']); ?>&nbsp;</td>
 		<td><?php echo h($auth['Auth']['message']); ?>&nbsp;</td>
 		<td><?php echo h($auth['Auth']['response']); ?>&nbsp;</td>
 		<td><?php echo h($auth['Auth']['authMessage']); ?>&nbsp;</td>
-		<td><?php echo h($auth['Auth']['litleTxnId']); ?>&nbsp;</td>
-		<td><?php echo h($auth['Auth']['captureAmount']); ?>&nbsp;</td>
-		<td><?php echo h($auth['Auth']['captureLitleTxnId']); ?>&nbsp;</td>
-		<td><?php echo h($auth['Auth']['captureMessage']); ?>&nbsp;</td>
 		<td class="actions">
-		
-			<?php echo $this->Html->link(__('Capture'), array('action' => 'capture', $auth['Auth']['id'])); ?>
-			<?php echo $this->Html->link(__('Credit'), array('action' => 'credit', $auth['Auth']['id'])); ?>
-			<?php echo $this->Html->link(__('Void'), array('action' => 'void', $auth['Auth']['id'])); ?>
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $auth['Auth']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $auth['Auth']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $auth['Auth']['id']), null, __('Are you sure you want to delete # %s?', $auth['Auth']['id'])); ?>
+		<?php if($auth['Auth']['response'] == "000")
+			  {
+				echo $this->Html->link(__('Capture'), array('action' => 'capture', $auth['Auth']['id']));
+				echo $this->Html->link(__('Credit'), array('action' => 'credit', $auth['Auth']['id']));
+				echo $this->Html->link(__('Void'), array('action' => 'void', $auth['Auth']['id']));
+				echo $this->Html->link(__('View'), array('action' => 'view', $auth['Auth']['id']));
+			  }
+			  else if($auth['Auth']['response'] != "000" && $auth['Auth']['response'] != "")
+			  {
+			  	echo $this->Html->link(__('Re-Auth'), array('action' => 'reauth', $auth['Auth']['id']));
+			  }
+			  else
+			  {
+			  }
+		?>
 		</td>
 	</tr>
 <?php endforeach; ?>
@@ -59,4 +59,11 @@
 	<ul>
 		<li><?php echo $this->Html->link(__('New Auth'), array('action' => 'add')); ?></li>
 	</ul>
-</div>
+	</br>
+	<h3><?php echo __('About Authorization'); ?></h3>
+	<?php echo "The Authorization transaction enables you to confirm that a customer has submitted a valid payment method with their order and has sufficient funds to purchase the goods or services they ordered."?>
+	</br>
+	</br>
+	<?php echo "Please click the New Auth Link Above to begin"?>
+	</div>
+

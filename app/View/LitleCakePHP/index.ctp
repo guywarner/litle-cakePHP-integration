@@ -1,22 +1,27 @@
-<?php?>
 <head>
-  <title>Demo</title>
   <header id="Litle-branding">
       <div class="wrapper">
         <hgroup>
           <h1> <?php echo $this->Html->image('Litle.jpg');?></h1>
         </hgroup>
-
 </head>
 	<fieldset>
 		<legend align="center";><?php echo __('Welcome to the Litle & Co. Cake PHP demo App'); ?></legend>
-	<?php echo "The following code is an example of using the Litle & Co. Cake php plugin";?>
 	</fieldset>
-<?php ?>
 
+	<h3><?php echo __('About Litle & Co.'); ?></h3>
+	<ul>
+		<?php echo "Litle & Co. powers the payment processing engines for leading companies that sell directly to consumers through internet retail, direct response marketing (TV, radio and telephone), and online services. Litle & Co. is the leading, independent authority in card-not-present (CNP) commerce, transaction processing and merchant services. Follow the link located below to redirect to the Litle Developers Portal or to our page on Github";?>
 
-<div class="actions">
+	</ul>
+	</br>
+	<h3><?php echo __('About This Demo'); ?></h3>
+	<ul>
+		<?php echo "Litle & Co. powers the payment processing engines for leading companies that sell directly to consumers through internet retail, direct response marketing (TV, radio and telephone), and online services. Litle & Co. is the leading, independent authority in card-not-present (CNP) commerce, transaction processing and merchant services.";?>
+	</ul>
+
 	<h3><?php echo __('Transactions'); ?></h3>
+<div class="actions">
 	<ul>
 	</br>
 		<li><?php echo $this->Html->link(__('Register Token Requests'),'/tokens');?></li>
