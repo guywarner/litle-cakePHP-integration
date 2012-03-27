@@ -1,23 +1,19 @@
 <div class="auths form">
 <?php echo $this->Form->create('Auth');?>
 	<fieldset>
-		<legend><?php echo __('CREDIT/REFUND'); ?></legend>
-	<h3><?php echo __('Credit Function Gist:'); ?></h3>
+		<legend><?php echo __('Re-Authorization'); ?></legend>
+	<h3><?php echo __('Re-Auth Function Gist:'); ?></h3>
 	</br>
 	</br>
 	</br>
 	</br>
 	</br>
 	</br>
-	<h3><?php echo __('User Input:'); ?></h3>
-	<?php
-		echo $this->Form->input('creditAmount');
-	?>
 	</fieldset>
 	<h3><?php echo __('Additional Values Being Passed:'); ?></h3>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
-		<th><div align="center"><?php echo "Captured Amount";?></th>
+		<th><div align="center"><?php echo "Amount";?></th>
 		<th><div align="center"><?php echo "Id";?></th>
 		<th><div align="center"><?php echo "litleTxnId";?></th>
 	</tr>
@@ -36,11 +32,11 @@
 		<li><?php echo $this->Html->link(__('Back to Homepage'), array('action' => 'index'));?></li>
 	</ul>
 	</br>
-	<h3><?php echo __('About Credit'); ?></h3>
-	<?php echo "You use a Credit transaction to refund money to a customer, even if the original transaction occurred outside of the Litle & Co. system. You may perform partial credits"?>
+	<h3><?php echo __('About Re-Auth'); ?></h3>
+	<?php echo "The re-auth transaction performs a second authorization by refrencing the litleTxnId of the original authorization"?>
 	</br>
 	</br>
-	<?php echo "Please fill out the amount to be credited"?>
+	<?php echo "No user fields are needed for a re-auth transaction"?>
 	</div>
 </div>
 	

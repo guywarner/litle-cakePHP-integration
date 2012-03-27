@@ -22,6 +22,7 @@
 		<td class="actions"><div align="left">
 		<?php if($auth['Auth']['response'] == "000")
 			  {
+			  	echo $this->Html->link(__('Auth Rev.'), array('action' => 'authReversal', $auth['Auth']['id']));
 				echo $this->Html->link(__('Capture'), array('action' => 'capture', $auth['Auth']['id']));
 				echo $this->Html->link(__('Credit'), array('action' => 'credit', $auth['Auth']['id']));
 				echo $this->Html->link(__('Void'), array('action' => 'void', $auth['Auth']['id']));
@@ -29,7 +30,7 @@
 			  }
 			  else if($auth['Auth']['response'] != "000" && $auth['Auth']['response'] != "")
 			  {
-			  	echo $this->Html->link(__('Re-Auth'), array('action' => 'reauth', $auth['Auth']['id']));
+			  	echo $this->Html->link(__('Re-Auth'), array('action' => 'reAuth', $auth['Auth']['id']));
 			  }
 			  else
 			  {

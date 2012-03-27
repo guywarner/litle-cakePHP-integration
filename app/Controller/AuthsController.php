@@ -79,7 +79,7 @@ class AuthsController extends AppController {
 			
 			
 			$hash_in = array(
-						'orderId'=> '4',
+						'orderId'=> '6',
 						'amount'=>$this->data['Auth']['amount'],
 						'orderSource'=>'ecommerce',
 						'billToAddress'=>array(
@@ -233,6 +233,10 @@ class AuthsController extends AppController {
 		} else {
 			$this->request->data = $this->Auth->read(null, $id);
 		}
+	}
+	public function reAuth($id = null) {
+	}
+	public function authReversal($id = null) {
 	}
 	
 	public function void($id = null) {

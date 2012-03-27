@@ -1,23 +1,19 @@
 <div class="auths form">
 <?php echo $this->Form->create('Auth');?>
 	<fieldset>
-		<legend><?php echo __('CREDIT/REFUND'); ?></legend>
-	<h3><?php echo __('Credit Function Gist:'); ?></h3>
+		<legend><?php echo __('Authorization Reversal'); ?></legend>
+	<h3><?php echo __('Auth Reversal Function Gist:'); ?></h3>
 	</br>
 	</br>
 	</br>
 	</br>
 	</br>
 	</br>
-	<h3><?php echo __('User Input:'); ?></h3>
-	<?php
-		echo $this->Form->input('creditAmount');
-	?>
 	</fieldset>
 	<h3><?php echo __('Additional Values Being Passed:'); ?></h3>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
-		<th><div align="center"><?php echo "Captured Amount";?></th>
+		<th><div align="center"><?php echo "Amount";?></th>
 		<th><div align="center"><?php echo "Id";?></th>
 		<th><div align="center"><?php echo "litleTxnId";?></th>
 	</tr>
@@ -36,11 +32,11 @@
 		<li><?php echo $this->Html->link(__('Back to Homepage'), array('action' => 'index'));?></li>
 	</ul>
 	</br>
-	<h3><?php echo __('About Credit'); ?></h3>
-	<?php echo "You use a Credit transaction to refund money to a customer, even if the original transaction occurred outside of the Litle & Co. system. You may perform partial credits"?>
+	<h3><?php echo __('About Auth Reversal'); ?></h3>
+	<?php echo "The primary use of Authorization Reversal transactions is to eliminate any unused amount on an unexpired Authorization. Issuing an Authorization Reversal has the benefit of freeing any remaining held amount that reduces the buying power of your customer. Potentially, this both increases customer satisfaction and can allow them to proceed with additional purchases that may otherwise be blocked by credit limits. It also helps you avoid any misuse of Auth fees imposed by the card associations."?>
 	</br>
 	</br>
-	<?php echo "Please fill out the amount to be credited"?>
+	<?php echo "No user fields are needed for an auth reversal transaction"?>
 	</div>
 </div>
 	
