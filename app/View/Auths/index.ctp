@@ -3,14 +3,40 @@
 	<table cellpadding="0" cellspacing="0">
 	<tr>
 			<th><div align="center"><?php echo ('123123');?></th></div>
+			<th><div align="center"><?php echo $this->Paginator->sort('litleTxnId');?></th></div>
+			<th><div align="center"><?php echo $this->Paginator->sort('amount');?></th></div>
+			<th><div align="center"><?php echo $this->Paginator->sort('message');?></th></div>
+			<th><div align="center"><?php echo $this->Paginator->sort('response');?></th></div>
+			<th><div align="center"><?php echo $this->Paginator->sort('Transaction Status');?></th></div>
+			<th class="actions"><div align="center"><?php echo __('Actions');?></th></div>
 	</tr>
 	<?php
 	foreach ($auths as $auth): ?>
 	<tr>
 	<td><?php echo h($auth['Auth']['id']); ?>&nbsp;</td>
-		<td><?php echo h($auth['Auth']['litleTxnId']); ?>&nbsp;</td>
+			<td><?php echo h($auth['Auth']['litleTxnId']); ?>&nbsp;</td>
 		<td><?php echo h($auth['Auth']['amount']); ?>&nbsp;</td>
-
+		<td><?php echo h($auth['Auth']['message']); ?>&nbsp;</td>
+		<td><?php echo h($auth['Auth']['response']); ?>&nbsp;</td>
+		<td><?php echo h($auth['Auth']['authMessage']); ?>&nbsp;</td>
+		<td class="actions"><div align="left">
+		<?php if($auth['Auth']['response'] == "000")
+			  {
+				echo $this->Html->link(__('Capture'), array('action' => 'capture', $auth['Auth']['id']));
+				echo $this->Html->link(__('Credit'), array('action' => 'credit', $auth['Auth']['id']));
+				echo $this->Html->link(__('Void'), array('action' => 'void', $auth['Auth']['id']));
+				
+			  }
+			  else if($auth['Auth']['response'] != "000" && $auth['Auth']['response'] != "")
+			  {
+			  	echo $this->Html->link(__('Re-Auth'), array('action' => 'reauth', $auth['Auth']['id']));
+			  }
+			  else
+			  {
+			  }
+			  echo $this->Html->link(__('View'), array('action' => 'view', $auth['Auth']['id']));
+		?>
+		</div></td>
 	</tr>
 <?php endforeach; ?>
 	</table>
