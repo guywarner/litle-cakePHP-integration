@@ -2,8 +2,11 @@
 <?php echo $this->Form->create('Auth');?>
 	<fieldset>
 		<legend><?php echo __('Add Auth'); ?></legend>
-	<?php
+	<tr><?php
+	
 		echo $this->Form->input('amount');
+		?></tr>
+		<tr><?php
 		echo $this->Form->input('name');
 		echo $this->Form->input('address1');
 		echo $this->Form->input('city');
@@ -15,7 +18,8 @@
 		echo $this->Form->input('number');
 		echo $this->Form->input('expDate');
 		echo $this->Form->input('cardValidationNum');
-	?>
+			
+	?></tr>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit'));?>
 </div>
