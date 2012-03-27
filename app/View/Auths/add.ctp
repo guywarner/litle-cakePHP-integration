@@ -1,3 +1,4 @@
+<h1> <?php echo $this->Html->image('Litle.jpg');?></h1>
 <div class="auths form">
 <?php echo $this->Form->create('Auth');?>
 	<fieldset>
@@ -14,7 +15,8 @@
 		echo $this->Form->input('country');
 		echo $this->Form->input('zip');
 		echo $this->Form->input('email');
-		echo $this->Form->input('type');
+		$options = array('VI'=>'VI','MC'=>'MC','AX'=>'AX','DC'=>'DC');
+		echo $this->Form->select('type',$options);
 		echo $this->Form->input('number');
 		echo $this->Form->input('expDate');
 		echo $this->Form->input('cardValidationNum');
