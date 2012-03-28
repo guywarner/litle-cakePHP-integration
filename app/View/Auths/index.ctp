@@ -27,6 +27,12 @@
 			  else if(($auth['Auth']['authRevMessage'] == "Approved"))
 			  {
 			  	$state = 'Auth Reversed';
+			  	$actualValue =NULL;
+			  }
+			   else if(($auth['Auth']['voidMessage'] == "Approved"))
+			  {
+			  	$state = 'Voided';
+			  	$actualValue =NULL;
 			  }
 			  else if ($auth['Auth']['captureMessage'] == "Approved" && $auth['Auth']['creditMessage'] != "Approved")
 			  {
@@ -49,6 +55,7 @@
 			  else
 			  {
 			  	$state = 'Error';
+			  	$actualValue =NULL;
 			  }
 		?>
 		<td><?php echo h($auth['Auth']['id']); ?>&nbsp;</td>
@@ -59,7 +66,7 @@
 		<td><?php echo h($auth['Auth']['transactionStatus']); ?>&nbsp;</td>
 		<td class="actions"><div align="left">
 		<?php 
-			  if ($state != "Error" && $state != "Auth Reversed"){
+			  if (isset($actualValue)){
 			  	for($i = 0; $i < count($displayValue); $i++)
 			  	{
 			  		echo $this->Html->link(__($displayValue[$i]), $actualValue[$i]);

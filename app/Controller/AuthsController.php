@@ -346,7 +346,7 @@ class AuthsController extends AppController {
 		if ($this->request->is('post') || $this->request->is('put')) {
 					
 			$hash_in = array(
-							$this->Auth->field('litleTxnId')
+							'litleTxnId'=>$this->Auth->field('litleTxnId')
 			);
 			$initilaize = &new LitleOnlineRequest();
 			@$voidResponse = $initilaize->voidRequest($hash_in);
