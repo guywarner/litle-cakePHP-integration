@@ -18,11 +18,15 @@
 			  $state = "";
 			  $displayValue = array('');
 			  $actualValue = array('');
-			  if(($auth['Auth']['authMessage'] == "Approved") && ($auth['Auth']['captureMessage'] != "Approved"))
+			  if(($auth['Auth']['authMessage'] == "Approved") || ($auth['Auth']['captureMessage'] != "Approved") && ($auth['Auth']['authRevMessage'] != "Approved"))
 			  {
 			  	$state = 'Authorized';
 			  	$displayValue = array('Auth Rev.', 'Capture');
 			  	$actualValue = array( array('action' => 'authReversal', $auth['Auth']['id']), array('action' => 'capture', $auth['Auth']['id']) );
+			  }
+			  else if(($auth['Auth']['authRevMessage'] == "Approved"))
+			  {
+			  	$state = 'Auth Reversed';
 			  }
 			  else if ($auth['Auth']['captureMessage'] == "Approved" && $auth['Auth']['creditMessage'] != "Approved")
 			  {
@@ -49,7 +53,7 @@
 		<td><?php echo h($auth['Auth']['authMessage']); ?>&nbsp;</td>
 		<td class="actions"><div align="left">
 		<?php 
-			  if ($state != "Error"){
+			  if ($state != "Error" && $state != "Auth Reversed"){
 			  	for($i = 0; $i < count($displayValue); $i++)
 			  	{
 			  		echo $this->Html->link(__($displayValue[$i]), $actualValue[$i]);

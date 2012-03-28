@@ -10,9 +10,13 @@ App::uses('AppController', 'Controller');
  */
 class AuthsController extends AppController {
 
-	
+	/**
+	 * purge Null method
+	 *
+	 * @returns array with no empty key values
+	 */
 	public function purgeNull($data_in, $data_out=NULL){
-	
+
 		foreach($data_in as $key => $value)
 		{
 			if (($value != NULL) && (!is_array($value)))
@@ -23,20 +27,25 @@ class AuthsController extends AppController {
 			{
 				$notEmpty = false;
 				foreach ($value as $key2 => $value2){
-					
+						
 					$notEmpty = $notEmpty || $value2;
 				}
-					if ($notEmpty){
-						$data_out[$key] = $data_in[$key];
-						AuthsController::purgeNull($value, $data_out[$key]);
-					}
-				
+				if ($notEmpty){
+					$data_out[$key] = $data_in[$key];
+					AuthsController::purgeNull($value, $data_out[$key]);
+				}
+
 			}
-				
+
 		}
 		return $data_out;
 	}
 	
+	/**
+	 * get Form Data method
+	 *
+	 * @return the string if not null
+	 */
 	function getFormData($string){
 		if ($this->data['Auth'][$string] == '' || NULL){
 			return NULL;
@@ -45,22 +54,22 @@ class AuthsController extends AppController {
 		}
 	}
 
-/**
- * index method
- *
- * @return void
- */
+	/**
+	 * index method
+	 *
+	 * @return void
+	 */
 	public function index() {
 		$this->Auth->recursive = 0;
 		$this->set('auths', $this->paginate());
 	}
 
-/**
- * view method
- *
- * @param string $id
- * @return void
- */
+	/**
+	 * view method
+	 *
+	 * @param string $id
+	 * @return void
+	 */
 	public function view($id = null) {
 		$this->Auth->id = $id;
 		if (!$this->Auth->exists()) {
@@ -69,11 +78,11 @@ class AuthsController extends AppController {
 		$this->set('auth', $this->Auth->read(null, $id));
 	}
 
-/**
- * add authorization method
- *
- * @returns message, authMessage, Response and ;litleTxnId to database
- */
+	/**
+	 * add authorization method
+	 *
+	 * @returns message, authMessage, Response and ;litleTxnId to database
+	 */
 	public function add() {
 		if ($this->request->is('post')) {
 			$hash_in = array(
@@ -92,9 +101,9 @@ class AuthsController extends AppController {
 								'number'=>AuthsController::getFormData('number'),
 								'expDate'=>AuthsController::getFormData('expDate'),
 								'cardValidationNum'=>AuthsController::getFormData('cardValidationNum')));
-			
+				
 			$hash_out = AuthsController::purgeNull($hash_in);
-			
+				
 			$initilaize = &new LitleOnlineRequest();
 			@$authorizationResponse = $initilaize->authorizationRequest($hash_out);
 			$message= XmlParser::getAttribute($authorizationResponse,'litleOnlineResponse','message');
@@ -105,11 +114,9 @@ class AuthsController extends AppController {
 			$this->request->data['Auth']['response'] = $response;
 			$this->request->data['Auth']['authMessage'] = $authMessage;
 			$this->request->data['Auth']['litleTxnId'] = $litleTxnId;
-			
-			$this->Auth->create();
-			
-			if ($this->Auth->save($this->request->data)) {
 				
+			$this->Auth->create();
+			if ($this->Auth->save($this->request->data)) {
 				$this->Session->setFlash(__($message));
 				$this->redirect(array('action' => 'index'));
 			} else {
@@ -118,59 +125,62 @@ class AuthsController extends AppController {
 		}
 	}
 
-/**
- * edit method
- *
- * @param string $id
- * @return void
- */
-	public function edit($id = null) {
-		$this->Auth->id = $id;
-		if (!$this->Auth->exists()) {
-			throw new NotFoundException(__('Invalid auth'));
-		}
-		if ($this->request->is('post') || $this->request->is('put')) {
-			if ($this->Auth->save($this->request->data)) {
-				
-				$hash_in = array(
-							'orderId'=> '4',
-							'amount'=>$this->data['Auth']['amount'],
-							'orderSource'=>'ecommerce',
-							'billToAddress'=>array(
-									'name'=>$this->data['Auth']['name'],
-									'addressLine1'=>$this->data['Auth']['address1'],
-									'city'=>$this->data['Auth']['city'],
-									'state'=>$this->data['Auth']['state'],
-									'country'=>$this->data['Auth']['country'],
-									'zip'=>$this->data['Auth']['zip'],
-									'email'=>$this->data['Auth']['email']),
-							'card'=> array(
-									'type'=>$this->data['Auth']['type'],
-									'number'=>$this->data['Auth']['number'],
-									'expDate'=>$this->data['Auth']['expDate'],
-									'cardValidationNum'=>$this->data['Auth']['cardValidationNum']));
-				$initilaize = &new LitleOnlineRequest();
-				@$authorizationResponse = $initilaize->authorizationRequest($hash_in);
-				//$message= XmlParser::getAttribute($authorizationResponse,'litleOnlineResponse','message');
-				$this->Session->setFlash(__($message));
-		
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The auth could not be saved. Please, try again.'));
-			}
-		} else {
-			$this->request->data = $this->Auth->read(null, $id);
-		}
-	}
-	
-	
+	/**
+	 * edit method
+	 *
+	 * @param string $id
+	 * @return void
+	 */
+// 	public function edit($id = null) {
+// 		$this->Auth->id = $id;
+// 		if (!$this->Auth->exists()) {
+// 			throw new NotFoundException(__('Invalid auth'));
+// 		}
+// 		if ($this->request->is('post') || $this->request->is('put')) {
+// 			if ($this->Auth->save($this->request->data)) {
+
+// 				$hash_in = array(
+// 							'orderId'=> '4',
+// 							'amount'=>$this->data['Auth']['amount'],
+// 							'orderSource'=>'ecommerce',
+// 							'billToAddress'=>array(
+// 									'name'=>$this->data['Auth']['name'],
+// 									'addressLine1'=>$this->data['Auth']['address1'],
+// 									'city'=>$this->data['Auth']['city'],
+// 									'state'=>$this->data['Auth']['state'],
+// 									'country'=>$this->data['Auth']['country'],
+// 									'zip'=>$this->data['Auth']['zip'],
+// 									'email'=>$this->data['Auth']['email']),
+// 							'card'=> array(
+// 									'type'=>$this->data['Auth']['type'],
+// 									'number'=>$this->data['Auth']['number'],
+// 									'expDate'=>$this->data['Auth']['expDate'],
+// 									'cardValidationNum'=>$this->data['Auth']['cardValidationNum']));
+// 				$initilaize = &new LitleOnlineRequest();
+// 				@$authorizationResponse = $initilaize->authorizationRequest($hash_in);
+// 				//$message= XmlParser::getAttribute($authorizationResponse,'litleOnlineResponse','message');
+// 				$this->Session->setFlash(__($message));
+
+// 				$this->redirect(array('action' => 'index'));
+// 			} else {
+// 				$this->Session->setFlash(__('The auth could not be saved. Please, try again.'));
+// 			}
+// 		} else {
+// 			$this->request->data = $this->Auth->read(null, $id);
+// 		}
+// 	}
+
+	/**
+	* capture method
+	*
+	* @returns message, captureMessage, Response and litleTxnId to database
+	*/
 	public function capture($id = null) {
 		$this->Auth->id = $id;
 		if (!$this->Auth->exists()) {
 			throw new NotFoundException(__('Invalid auth'));
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
-			
 			$hash_in = array('orderId'=> '4',
 										'partial'=>$this->data['Auth']['partial'],
 										'litleTxnId'=>$this->Auth->field('litleTxnId'),
@@ -186,9 +196,8 @@ class AuthsController extends AppController {
 			$this->request->data['Auth']['litleTxnId'] = $captureLitleTxnId;
 			$this->request->data['Auth']['captureMessage'] = $captureMessage;
 			$this->request->data['Auth']['captureLitleTxnId'] = $captureLitleTxnId;
-			
-			if ($this->Auth->save($this->request->data)) {
 				
+			if ($this->Auth->save($this->request->data)) {
 				$this->Session->setFlash(__($captureMessage));
 				$this->redirect(array('action' => 'index'));
 			} else {
@@ -198,30 +207,37 @@ class AuthsController extends AppController {
 			$this->request->data = $this->Auth->read(null, $id);
 		}
 	}
-	
+
+	/**
+	* credit method
+	*
+	* @returns message, creditMessage, Response and litleTxnId to database
+	*/
 	public function credit($id = null) {
 		$this->Auth->id = $id;
 		if (!$this->Auth->exists()) {
 			throw new NotFoundException(__('Invalid auth'));
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
-			
+				
 			$hash_in = array(
-											'litleTxnId'=>$this->Auth->field('captureLitleTxnId'),
-											'amount'=>$this->data['Auth']['creditAmount']
+										'litleTxnId'=>$this->Auth->field('captureLitleTxnId'),
+										'amount'=>$this->data['Auth']['creditAmount']
 			);
 			$initilaize = &new LitleOnlineRequest();
 			@$creditResponse = $initilaize->creditRequest($hash_in);
 			$creditMessage= XmlParser::getNode($creditResponse,'message');
 			$creditLitleTxnId = XmlParser::getNode($creditResponse,'litleTxnId');
 			$creditMessage= XmlParser::getNode($creditResponse,'message');
-			//$captureMessage= XmlParser::getAttribute($captureResponse,'litleOnlineResponse','message');
+			$message= XmlParser::getAttribute($creditResponse,'litleOnlineResponse','message');
+			$this->request->data['Auth']['amount'] = $this->data['Auth']['creditAmount'];
 			$this->request->data['Auth']['message'] = $message;
+			$this->request->data['Auth']['litleTxnId'] = $creditLitleTxnId;
 			$this->request->data['Auth']['creditMessage'] = $creditMessage;
 			$this->request->data['Auth']['creditLitleTxnId'] = $creditLitleTxnId;
-			
+				
 			if ($this->Auth->save($this->request->data)) {
-	
+
 				$this->Session->setFlash(__($creditMessage));
 				$this->redirect(array('action' => 'index'));
 			} else {
@@ -232,39 +248,102 @@ class AuthsController extends AppController {
 		}
 	}
 	public function reAuth($id = null) {
-	}
-	public function authReversal($id = null) {
+		$this->Auth->id = $id;
+		if (!$this->Auth->exists()) {
+			throw new NotFoundException(__('Invalid auth'));
+		}
+		unset($this->request->data['Auth']['message']);
+		unset($this->request->data['Auth']['litleTxnId']);
+		if ($this->request->is('post') || $this->request->is('put')) {
+			$hash_in = array(
+							'litleTxnId'=>$this->Auth->field('litleTxnId')
+			);
+			$initilaize = &new LitleOnlineRequest();
+			@$reAuthorizationResponse = $initilaize->authorizationRequest($hash_in);
+			$reAuthMessage= XmlParser::getNode($reAuthorizationResponse,'message');
+			$reAuthLitleTxnId = XmlParser::getNode($reAuthorizationResponse,'litleTxnId');
+			$message= XmlParser::getAttribute($reAuthorizationResponse,'litleOnlineResponse','message');
+			$this->request->data['Auth']['message'] = $message;
+			$this->request->data['Auth']['litleTxnId'] = $reAuthLitleTxnId;
+			$this->request->data['Auth']['authMessage'] = $reAuthMessage;
+			$this->request->data['Auth']['authLitleTxnId'] = $reAuthLitleTxnId;
+		
+			if ($this->Auth->save($this->request->data)) {
+		
+				$this->Session->setFlash(__($message));
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The auth could not be saved. Please, try again.'));
+			}
+		} else {
+			$this->request->data = $this->Auth->read(null, $id);
+		}
 	}
 	
+	public function authReversal($id = null) {
+		$this->Auth->id = $id;
+		if (!$this->Auth->exists()) {
+			throw new NotFoundException(__('Invalid auth'));
+		}
+		unset($this->request->data['Auth']['message']);
+		unset($this->request->data['Auth']['litleTxnId']);
+		if ($this->request->is('post') || $this->request->is('put')) {
+		
+			$hash_in = array(
+								'litleTxnId'=>$this->Auth->field('litleTxnId')
+			);
+			$initilaize = &new LitleOnlineRequest();
+			@$authRevResponse = $initilaize->authReversalRequest($hash_in);
+			$authRevMessage= XmlParser::getNode($authRevResponse,'message');
+			$authRevLitleTxnId = XmlParser::getNode($authRevResponse,'litleTxnId');
+			$message= XmlParser::getAttribute($authRevResponse,'litleOnlineResponse','message');
+			$this->request->data['Auth']['message'] = $message;
+			$this->request->data['Auth']['litleTxnId'] = $authRevLitleTxnId;
+			$this->request->data['Auth']['authRevMessage'] = $authRevMessage;
+			$this->request->data['Auth']['authRevLitleTxnId'] = $authRevLitleTxnId;
+		
+			if ($this->Auth->save($this->request->data)) {
+		
+				$this->Session->setFlash(__($message));
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The auth could not be saved. Please, try again.'));
+			}
+		} else {
+			$this->request->data = $this->Auth->read(null, $id);
+		}
+	}
+	public function sale() {
+	}
+	public function token() {
+	}
+	/**
+	* void method
+	*
+	* @returns message, voidMessage, Response and litleTxnId to database
+	*/
 	public function void($id = null) {
 		$this->Auth->id = $id;
 		if (!$this->Auth->exists()) {
 			throw new NotFoundException(__('Invalid auth'));
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
-			
-			if ($this->data['Auth']['voidType'] == 'capture'){
-				$voidLitleTxnId = $this->Auth->field('captureLitleTxnId');
-			}
-			elseif($this->data['Auth']['voidType'] == 'credit'){ 
-				$voidLitleTxnId = $this->Auth->field('creditLitleTxnId');
-			}
-			else{
-				$this->Session->setFlash(__('The transaction could not be voided. Please, try again.'));
-				$voidLitleTxnId = 123;
-			}
-			
+					
 			$hash_in = array(
-							'litleTxnId'=>$voidLitleTxnId
+							$this->Auth->field('litleTxnId')
 			);
 			$initilaize = &new LitleOnlineRequest();
 			@$voidResponse = $initilaize->voidRequest($hash_in);
 			$voidMessage= XmlParser::getNode($voidResponse,'message');
-			
+			$voidLitleTxnId = XmlParser::getNode($voidResponse,'litleTxnId');
+			$message= XmlParser::getAttribute($voidResponse,'litleOnlineResponse','message');
+			$this->request->data['Auth']['message'] = $message;
+			$this->request->data['Auth']['litleTxnId'] = $voidLitleTxnId;
+			$this->request->data['Auth']['captureMessage'] = $voidMessage;
+			$this->request->data['Auth']['captureLitleTxnId'] = $voidLitleTxnId;
+				
 			if ($this->Auth->save($this->request->data)) {
-	
 				$this->Session->setFlash(__($voidMessage));
-	
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The auth could not be saved. Please, try again.'));
@@ -274,12 +353,12 @@ class AuthsController extends AppController {
 		}
 	}
 
-/**
- * delete method
- *
- * @param string $id
- * @return void
- */
+	/**
+	 * delete method
+	 *
+	 * @param string $id
+	 * @return void
+	 */
 	public function delete($id = null) {
 		if (!$this->request->is('post')) {
 			throw new MethodNotAllowedException();
