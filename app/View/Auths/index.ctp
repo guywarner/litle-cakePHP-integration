@@ -3,7 +3,7 @@
 	<h2><?php echo __('Authorization Transaction Cycle Homepage');?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
-			<th><div align="center"><?php echo ('123123');?></th></div>
+			<th><div align="center"><?php echo ('Id');?></th></div>
 			<th><div align="center"><?php echo $this->Paginator->sort('litleTxnId');?></th></div>
 			<th><div align="center"><?php echo $this->Paginator->sort('amount');?></th></div>
 			<th><div align="center"><?php echo $this->Paginator->sort('message');?></th></div>
