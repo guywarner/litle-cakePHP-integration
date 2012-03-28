@@ -47,7 +47,7 @@ class AuthsController extends AppController {
 	 * @return the string if not null
 	 */
 	function getFormData($string){
-		if ($this->data['Auth'][$string] == '' || NULL){
+		if ($this->data['Auth'][$string] == '' || $this->data['Auth'][$string] == NULL){
 			return NULL;
 		}else{
 			return $this->data['Auth'][$string];
@@ -86,7 +86,7 @@ class AuthsController extends AppController {
 	public function add() {
 		if ($this->request->is('post')) {
 			$hash_in = array(
-						'orderId'=> '6',
+						'orderId'=> $this->Auth->field('id'),
 						'amount'=>$this->data['Auth']['amount'],
 						'orderSource'=>'ecommerce',
 						'billToAddress'=>array(
@@ -132,44 +132,44 @@ class AuthsController extends AppController {
 	 * @param string $id
 	 * @return void
 	 */
-// 	public function edit($id = null) {
-// 		$this->Auth->id = $id;
-// 		if (!$this->Auth->exists()) {
-// 			throw new NotFoundException(__('Invalid auth'));
-// 		}
-// 		if ($this->request->is('post') || $this->request->is('put')) {
-// 			if ($this->Auth->save($this->request->data)) {
+	public function edit($id = null) {
+		$this->Auth->id = $id;
+		if (!$this->Auth->exists()) {
+			throw new NotFoundException(__('Invalid auth'));
+		}
+		if ($this->request->is('post') || $this->request->is('put')) {
+			if ($this->Auth->save($this->request->data)) {
 
-// 				$hash_in = array(
-// 							'orderId'=> '4',
-// 							'amount'=>$this->data['Auth']['amount'],
-// 							'orderSource'=>'ecommerce',
-// 							'billToAddress'=>array(
-// 									'name'=>$this->data['Auth']['name'],
-// 									'addressLine1'=>$this->data['Auth']['address1'],
-// 									'city'=>$this->data['Auth']['city'],
-// 									'state'=>$this->data['Auth']['state'],
-// 									'country'=>$this->data['Auth']['country'],
-// 									'zip'=>$this->data['Auth']['zip'],
-// 									'email'=>$this->data['Auth']['email']),
-// 							'card'=> array(
-// 									'type'=>$this->data['Auth']['type'],
-// 									'number'=>$this->data['Auth']['number'],
-// 									'expDate'=>$this->data['Auth']['expDate'],
-// 									'cardValidationNum'=>$this->data['Auth']['cardValidationNum']));
-// 				$initilaize = &new LitleOnlineRequest();
-// 				@$authorizationResponse = $initilaize->authorizationRequest($hash_in);
-// 				//$message= XmlParser::getAttribute($authorizationResponse,'litleOnlineResponse','message');
-// 				$this->Session->setFlash(__($message));
+				$hash_in = array(
+							'orderId'=> $id,
+							'amount'=>$this->data['Auth']['amount'],
+							'orderSource'=>'ecommerce',
+							'billToAddress'=>array(
+									'name'=>$this->data['Auth']['name'],
+									'addressLine1'=>$this->data['Auth']['address1'],
+									'city'=>$this->data['Auth']['city'],
+									'state'=>$this->data['Auth']['state'],
+									'country'=>$this->data['Auth']['country'],
+									'zip'=>$this->data['Auth']['zip'],
+									'email'=>$this->data['Auth']['email']),
+							'card'=> array(
+									'type'=>$this->data['Auth']['type'],
+									'number'=>$this->data['Auth']['number'],
+									'expDate'=>$this->data['Auth']['expDate'],
+									'cardValidationNum'=>$this->data['Auth']['cardValidationNum']));
+				$initilaize = &new LitleOnlineRequest();
+				@$authorizationResponse = $initilaize->authorizationRequest($hash_in);
+				//$message= XmlParser::getAttribute($authorizationResponse,'litleOnlineResponse','message');
+				$this->Session->setFlash(__($message));
 
-// 				$this->redirect(array('action' => 'index'));
-// 			} else {
-// 				$this->Session->setFlash(__('The auth could not be saved. Please, try again.'));
-// 			}
-// 		} else {
-// 			$this->request->data = $this->Auth->read(null, $id);
-// 		}
-// 	}
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The auth could not be saved. Please, try again.'));
+			}
+		} else {
+			$this->request->data = $this->Auth->read(null, $id);
+		}
+	}
 
 	/**
 	* capture method
@@ -184,7 +184,7 @@ class AuthsController extends AppController {
 		unset($this->request->data['Auth']['message']);
 		#unset($this->request->data['Auth']['litleTxnId']);
 		if ($this->request->is('post') || $this->request->is('put')) {
-			$hash_in = array('orderId'=> '4',
+			$hash_in = array('orderId'=> $id,
 										'partial'=>$this->data['Auth']['partial'],
 										'litleTxnId'=>$this->Auth->field('litleTxnId'),
 										'amount'=>$this->data['Auth']['captureAmount'],
@@ -299,7 +299,7 @@ class AuthsController extends AppController {
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
 				$hash_in = array(
-								'orderId'=> '6',
+								'orderId'=> $id,
 								'amount'=>$this->data['Auth']['amount'],
 								'orderSource'=>'ecommerce',
 								'billToAddress'=>array(
@@ -382,7 +382,7 @@ class AuthsController extends AppController {
 	public function sale() {
 			if ($this->request->is('post')) {
 				$hash_in = array(
-								'orderId'=> '6',
+								'orderId'=> $this->Auth->field('id'),
 								'amount'=>$this->data['Auth']['amount'],
 								'orderSource'=>'ecommerce',
 								'billToAddress'=>array(
@@ -425,7 +425,7 @@ class AuthsController extends AppController {
 	public function token() {
 		if ($this->request->is('post')) {
 			$hash_in = array(
-										'orderId'=> '6',
+										'orderId'=> $this->Auth->field('id'),
 										'accountNumber'=>AuthsController::getFormData('number')
 			);
 

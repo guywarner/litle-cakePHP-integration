@@ -36,11 +36,6 @@
 			<?php echo h($auth['Auth']['zip']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Email'); ?></dt>
-		<dd>
-			<?php echo h($auth['Auth']['email']); ?>
-			&nbsp;
-		</dd>
 		<dt><?php echo __('Type'); ?></dt>
 		<dd>
 			<?php echo h($auth['Auth']['type']); ?>
@@ -101,6 +96,7 @@
 			<?php echo h($auth['Auth']['captureMessage']); ?>
 			&nbsp;
 		</dd>
+		
 	</dl>
 </div>
 <div class="actions">
