@@ -1,13 +1,6 @@
 <?php?>
-<head>
-  <title>Demo</title>
-  <header id="Litle-branding">
-      <div class="wrapper">
-        <hgroup>
-          <h1> <?php echo $this->Html->image('Litle.jpg');?></h1>
-        </hgroup>
+<h1> <?php echo $this->Html->image('Litle.jpg');?></h1>
 
-</head>
 	<fieldset>
 		<legend align="center";><?php echo __('Welcome to the Litle & Co. Cake PHP demo App'); ?></legend>
 	<?php echo "The following code is an example of using the Litle & Co. Cake php plugin";?>

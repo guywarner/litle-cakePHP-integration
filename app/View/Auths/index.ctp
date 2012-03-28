@@ -1,10 +1,11 @@
 <h1> <?php echo $this->Html->image('Litle.jpg');?></h1>
 <div class="auths index">
-	<h2><?php echo __('Authorization Transaction Cycle Homepage');?></h2>
+	<h2><?php echo __('Transaction Homepage');?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
 			<th><div align="center"><?php echo ('Id');?></th></div>
 			<th><div align="center"><?php echo $this->Paginator->sort('litleTxnId');?></th></div>
+			<th><div align="center"><?php echo $this->Paginator->sort('Txn State');?></th></div>
 			<th><div align="center"><?php echo $this->Paginator->sort('amount');?></th></div>
 			<th><div align="center"><?php echo $this->Paginator->sort('message');?></th></div>
 			<th><div align="center"><?php echo $this->Paginator->sort('Transaction Status');?></th></div>
@@ -13,26 +14,46 @@
 	<?php
 	foreach ($auths as $auth): ?>
 	<tr>
-	<td><?php echo h($auth['Auth']['id']); ?>&nbsp;</td>
-			<td><?php echo h($auth['Auth']['litleTxnId']); ?>&nbsp;</td>
+		<?php 
+			  $state = "";
+			  $displayValue = array('');
+			  $actualValue = array('');
+			  if(($auth['Auth']['authMessage'] == "Approved") && ($auth['Auth']['captureMessage'] != "Approved"))
+			  {
+			  	$state = 'Authorized';
+			  	$displayValue = array('Auth Rev.', 'Capture');
+			  	$actualValue = array( array('action' => 'authReversal', $auth['Auth']['id']), array('action' => 'capture', $auth['Auth']['id']) );
+			  }
+			  else if ($auth['Auth']['captureMessage'] == "Approved" && $auth['Auth']['creditMessage'] != "Approved")
+			  {
+				  $state = 'Captured';
+				  $displayValue = array('Credit', 'Void');
+			  	  $actualValue = array( array('action' => 'credit', $auth['Auth']['id']), array('action' => 'void', $auth['Auth']['id']) );
+			  }
+			  else if($auth['Auth']['response'] != "000" && $auth['Auth']['response'] != "")
+			  {
+			    $state = 'Failed Auth';
+			    $displayValue = array('ReAuth');
+			  	$actualValue = array( array('action' => 'reAuth', $auth['Auth']['id']));
+			  }
+			  else
+			  {
+			  	$state = 'Error';
+			  }
+		?>
+		<td><?php echo h($auth['Auth']['id']); ?>&nbsp;</td>
+		<td><?php echo h($auth['Auth']['litleTxnId']); ?>&nbsp;</td>
+		<td><?php echo h($state); ?>&nbsp;</td>
 		<td><?php echo h($auth['Auth']['amount']); ?>&nbsp;</td>
 		<td><?php echo h($auth['Auth']['message']); ?>&nbsp;</td>
 		<td><?php echo h($auth['Auth']['authMessage']); ?>&nbsp;</td>
 		<td class="actions"><div align="left">
-		<?php if($auth['Auth']['response'] == "000")
-			  {
-			  	echo $this->Html->link(__('Auth Rev.'), array('action' => 'authReversal', $auth['Auth']['id']));
-				echo $this->Html->link(__('Capture'), array('action' => 'capture', $auth['Auth']['id']));
-				echo $this->Html->link(__('Credit'), array('action' => 'credit', $auth['Auth']['id']));
-				echo $this->Html->link(__('Void'), array('action' => 'void', $auth['Auth']['id']));
-				
-			  }
-			  else if($auth['Auth']['response'] != "000" && $auth['Auth']['response'] != "")
-			  {
-			  	echo $this->Html->link(__('Re-Auth'), array('action' => 'reAuth', $auth['Auth']['id']));
-			  }
-			  else
-			  {
+		<?php 
+			  if ($state != "Error"){
+			  	for($i = 0; $i < count($displayValue); $i++)
+			  	{
+			  		echo $this->Html->link(__($displayValue[$i]), $actualValue[$i]);
+			  	}
 			  }
 			  echo $this->Html->link(__('View'), array('action' => 'view', $auth['Auth']['id']));
 		?>
@@ -56,15 +77,38 @@
 	</div>
 </div>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New Auth'), array('action' => 'add')); ?></li>
-	</ul>
+	<h2><?php echo __('Actions'); ?></h2>
 	</br>
 	<h3><?php echo __('About Authorization'); ?></h3>
 	<?php echo "The Authorization transaction enables you to confirm that a customer has submitted a valid payment method with their order and has sufficient funds to purchase the goods or services they ordered."?>
 	</br>
 	</br>
+		<ul>
+		<li><?php echo $this->Html->link(__('New Auth'), array('action' => 'add')); ?></li>
+	</ul>
+	</br>
 	<?php echo "Please click the New Auth Link Above to begin"?>
-	</div>
+	</br>
+	</br>
+	<h3><?php echo __('About Sale'); ?></h3>
+	<?php echo "The Sale transaction enables you to both authorize fund availability and deposit those funds by means of a single transaction. The Sale transaction is also known as a conditional deposit, because the deposit takes place only if the authorization succeeds. If the authorization is declined, the deposit will not be processed."?>
+	</br>
+	</br>
+	<ul>
+		<li><?php echo $this->Html->link(__('New Sale'), array('action' => 'sale')); ?></li>
+	</ul>
+	</br>
+	<?php echo "Please click the New Sale Link Above to begin"?>
+	</br>
+	</br>
+	<h3><?php echo __('About Tokenization'); ?></h3>
+	<?php echo "Description of Tokenization goes here space fillere space filler space filler space filler"?>
+	</br>
+	</br>
+	<ul>
+		<li><?php echo $this->Html->link(__('New Register Token Request'), array('action' => 'token')); ?></li>
+	</ul>
+	</br>
+	<?php echo "Please click the New Token Link Above to begin"?>
+</div>
 

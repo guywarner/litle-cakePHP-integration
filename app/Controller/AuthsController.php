@@ -70,14 +70,12 @@ class AuthsController extends AppController {
 	}
 
 /**
- * add method
+ * add authorization method
  *
- * @return void
+ * @returns message, authMessage, Response and ;litleTxnId to database
  */
 	public function add() {
 		if ($this->request->is('post')) {
-			
-			
 			$hash_in = array(
 						'orderId'=> '6',
 						'amount'=>$this->data['Auth']['amount'],
@@ -87,9 +85,8 @@ class AuthsController extends AppController {
 								'addressLine1'=>AuthsController::getFormData('address1'),
 								'city'=>AuthsController::getFormData('city'),
 								'state'=>AuthsController::getFormData('state'),
-								'country'=>AuthsController::getFormData('country'),
-								'zip'=>AuthsController::getFormData('zip'),
-								'email'=>AuthsController::getFormData('email')),
+								'country'=>'US',
+								'zip'=>AuthsController::getFormData('zip')),
 						'card'=> array(
 								'type'=>AuthsController::getFormData('type'),
 								'number'=>AuthsController::getFormData('number'),
@@ -175,6 +172,7 @@ class AuthsController extends AppController {
 		if ($this->request->is('post') || $this->request->is('put')) {
 			
 			$hash_in = array('orderId'=> '4',
+										'partial'=>$this->data['Auth']['partial'],
 										'litleTxnId'=>$this->Auth->field('litleTxnId'),
 										'amount'=>$this->data['Auth']['captureAmount'],
 										'orderSource'=>'ecommerce');
@@ -183,12 +181,11 @@ class AuthsController extends AppController {
 			$captureMessage= XmlParser::getNode($captureResponse,'message');
 			$captureLitleTxnId = XmlParser::getNode($captureResponse,'litleTxnId');
 			$message= XmlParser::getAttribute($captureResponse,'litleOnlineResponse','message');
-			
+			$this->request->data['Auth']['amount'] = $this->data['Auth']['captureAmount'];
 			$this->request->data['Auth']['message'] = $message;
+			$this->request->data['Auth']['litleTxnId'] = $captureLitleTxnId;
 			$this->request->data['Auth']['captureMessage'] = $captureMessage;
 			$this->request->data['Auth']['captureLitleTxnId'] = $captureLitleTxnId;
-			
-			//$this->Auth->create();
 			
 			if ($this->Auth->save($this->request->data)) {
 				
@@ -258,12 +255,11 @@ class AuthsController extends AppController {
 			}
 			
 			$hash_in = array(
-												'litleTxnId'=>$voidLitleTxnId
+							'litleTxnId'=>$voidLitleTxnId
 			);
 			$initilaize = &new LitleOnlineRequest();
 			@$voidResponse = $initilaize->voidRequest($hash_in);
 			$voidMessage= XmlParser::getNode($voidResponse,'message');
-			//$captureMessage= XmlParser::getAttribute($captureResponse,'litleOnlineResponse','message');
 			
 			if ($this->Auth->save($this->request->data)) {
 	
