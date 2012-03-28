@@ -109,13 +109,13 @@ class AuthsController extends AppController {
 			$message= XmlParser::getAttribute($authorizationResponse,'litleOnlineResponse','message');
 			$response = XmlParser::getNode($authorizationResponse,'response');
 			$authMessage = XmlParser::getNode($authorizationResponse,'message');
-			$litleTxnId = XmlParser::getNode($authorizationResponse,'litleTxnId');
+			$authLitleTxnId = XmlParser::getNode($authorizationResponse,'litleTxnId');
 			$this->request->data['Auth']['message'] = $message;
 			$this->request->data['Auth']['response'] = $response;
 			$this->request->data['Auth']['authMessage'] = $authMessage;
 			$this->request->data['Auth']['transactionStatus'] = $authMessage;
-			$this->request->data['Auth']['litleTxnId'] = $litleTxnId;
-				
+			$this->request->data['Auth']['litleTxnId'] = $authLitleTxnId;
+			$this->request->data['Auth']['authLitleTxnId'] = $authLitleTxnId;
 			$this->Auth->create();
 			if ($this->Auth->save($this->request->data)) {
 				$this->Session->setFlash(__($message));
@@ -292,6 +292,56 @@ class AuthsController extends AppController {
 			$this->request->data = $this->Auth->read(null, $id);
 		}
 	}
+	public function saleToken($id = null) {
+		$this->Auth->id = $id;
+		if (!$this->Auth->exists()) {
+			throw new NotFoundException(__('Invalid auth'));
+		}
+		if ($this->request->is('post') || $this->request->is('put')) {
+				$hash_in = array(
+								'orderId'=> '6',
+								'amount'=>$this->data['Auth']['amount'],
+								'orderSource'=>'ecommerce',
+								'billToAddress'=>array(
+										'name'=>AuthsController::getFormData('name'),
+										'addressLine1'=>AuthsController::getFormData('address1'),
+										'city'=>AuthsController::getFormData('city'),
+										'state'=>AuthsController::getFormData('state'),
+										'country'=>'US',
+										'zip'=>AuthsController::getFormData('zip')),
+								'token'=> array(
+										'litleToken'=>$this->Auth->field('litleToken'),
+										'expDate'=>AuthsController::getFormData('expDate'),
+										'cardValidationNum'=>AuthsController::getFormData('cardValidationNum'),
+										'type'=>AuthsController::getFormData('type')));
+		
+				$hash_out = AuthsController::purgeNull($hash_in);
+		
+				$initilaize = &new LitleOnlineRequest();
+				@$saleResponse = $initilaize->saleRequest($hash_out);
+				$message= XmlParser::getAttribute($saleResponse,'litleOnlineResponse','message');
+				$response = XmlParser::getNode($saleResponse,'response');
+				$saleMessage = XmlParser::getNode($saleResponse,'message');
+				$saleLitleTxnId = XmlParser::getNode($saleResponse,'litleTxnId');
+				$this->request->data['Auth']['message'] = $message;
+				$this->request->data['Auth']['response'] = $response;
+				$this->request->data['Auth']['saleMessage'] = $saleMessage;
+				$this->request->data['Auth']['transactionStatus'] = $saleMessage;
+				$this->request->data['Auth']['litleTxnId'] = $saleLitleTxnId;
+				$this->request->data['Auth']['saleLitleTxnId'] = $saleLitleTxnId;
+		
+				$this->Auth->create();
+				if ($this->Auth->save($this->request->data)) {
+					$this->Session->setFlash(__($message));
+					$this->redirect(array('action' => 'index'));
+					} else {
+				$this->Session->setFlash(__('The auth could not be saved. Please, try again.'));
+			}
+		} else {
+			$this->request->data = $this->Auth->read(null, $id);
+		}
+	}
+		
 	
 	public function authReversal($id = null) {
 		$this->Auth->id = $id;
@@ -330,8 +380,79 @@ class AuthsController extends AppController {
 		}
 	}
 	public function sale() {
+			if ($this->request->is('post')) {
+				$hash_in = array(
+								'orderId'=> '6',
+								'amount'=>$this->data['Auth']['amount'],
+								'orderSource'=>'ecommerce',
+								'billToAddress'=>array(
+										'name'=>AuthsController::getFormData('name'),
+										'addressLine1'=>AuthsController::getFormData('address1'),
+										'city'=>AuthsController::getFormData('city'),
+										'state'=>AuthsController::getFormData('state'),
+										'country'=>'US',
+										'zip'=>AuthsController::getFormData('zip')),
+								'card'=> array(
+										'type'=>AuthsController::getFormData('type'),
+										'number'=>AuthsController::getFormData('number'),
+										'expDate'=>AuthsController::getFormData('expDate'),
+										'cardValidationNum'=>AuthsController::getFormData('cardValidationNum')));
+		
+				$hash_out = AuthsController::purgeNull($hash_in);
+		
+				$initilaize = &new LitleOnlineRequest();
+				@$saleResponse = $initilaize->saleRequest($hash_out);
+				$message= XmlParser::getAttribute($saleResponse,'litleOnlineResponse','message');
+				$response = XmlParser::getNode($saleResponse,'response');
+				$saleMessage = XmlParser::getNode($saleResponse,'message');
+				$saleLitleTxnId = XmlParser::getNode($saleResponse,'litleTxnId');
+				$this->request->data['Auth']['message'] = $message;
+				$this->request->data['Auth']['response'] = $response;
+				$this->request->data['Auth']['saleMessage'] = $saleMessage;
+				$this->request->data['Auth']['transactionStatus'] = $saleMessage;
+				$this->request->data['Auth']['litleTxnId'] = $saleLitleTxnId;
+				$this->request->data['Auth']['saleLitleTxnId'] = $saleLitleTxnId;
+		
+				$this->Auth->create();
+				if ($this->Auth->save($this->request->data)) {
+					$this->Session->setFlash(__($message));
+					$this->redirect(array('action' => 'index'));
+				} else {
+					$this->Session->setFlash(__('The auth could not be saved. Please, try again.'));
+				}
+			}
 	}
 	public function token() {
+		if ($this->request->is('post')) {
+			$hash_in = array(
+										'orderId'=> '6',
+										'accountNumber'=>AuthsController::getFormData('number')
+			);
+
+			$hash_out = AuthsController::purgeNull($hash_in);
+		
+			$initilaize = &new LitleOnlineRequest();
+			@$registerTokenResponse = $initilaize->registerTokenRequest($hash_out);
+			$message= XmlParser::getAttribute($registerTokenResponse,'litleOnlineResponse','message');
+			$response = XmlParser::getNode($registerTokenResponse,'response');
+			$tokenMessage = XmlParser::getNode($registerTokenResponse,'message');
+			$litleToken = XmlParser::getNode($registerTokenResponse,'litleToken');
+			$tokenLitleTxnId = XmlParser::getNode($registerTokenResponse,'litleTxnId');
+			$this->request->data['Auth']['message'] = $message;
+			$this->request->data['Auth']['response'] = $response;
+			$this->request->data['Auth']['tokenMessage'] = $tokenMessage;
+			$this->request->data['Auth']['transactionStatus'] = $tokenMessage;
+			$this->request->data['Auth']['litleTxnId'] = $tokenLitleTxnId;
+			$this->request->data['Auth']['tokenLitleTxnId'] = $tokenLitleTxnId;
+			$this->request->data['Auth']['litleToken'] = $litleToken;
+			$this->Auth->create();
+			if ($this->Auth->save($this->request->data)) {
+				$this->Session->setFlash(__($message));
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The auth could not be saved. Please, try again.'));
+			}
+		}
 	}
 	/**
 	* void method

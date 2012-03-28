@@ -1,0 +1,58 @@
+<h1> <?php echo $this->Html->image('Litle.jpg');?></h1>
+<div class="auths form">
+<?php echo $this->Form->create('Auth');?>
+	<fieldset>
+		<legend><?php echo __('Sale with Token'); ?></legend>
+			<h3><?php echo __('Sale with Token Function Gist:'); ?></h3>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	<h3><?php echo __('User Input:'); ?></h3>
+	<tr><?php
+	
+		echo $this->Form->input('amount');
+		?></tr>
+		<tr><?php
+		echo $this->Form->input('name');
+		echo $this->Form->input('address1');
+		echo $this->Form->input('city');
+		echo $this->Form->input('state');
+		echo $this->Form->input('zip');
+		$options = array('VI'=>'VI','MC'=>'MC','AX'=>'AX','DC'=>'DC');
+		echo $this->Form->input('type',array('type'=>'select','options'=>$options));
+		echo $this->Form->input('expDate');
+		echo $this->Form->input('cardValidationNum');
+			
+	?></tr>
+	</fieldset>
+	<table cellpadding="0" cellspacing="0">
+	<tr>
+		<th><div align="center"><?php echo "Id";?></th>
+		<th><div align="center"><?php echo "litleTxnId";?></th>
+	</tr>
+	<tr><div align = "center">
+		<td><div align = "center"><?php echo $this->data['Auth']['id']; ?>&nbsp;</td></div>
+		<td><div align = "center"><?php echo $this->data['Auth']['litleToken']; ?>&nbsp;</td></div>
+	</tr>
+	</table>
+<?php echo $this->Form->end(__('Submit'));?>
+</div>
+<div class="actions">
+	<h3><?php echo __('Actions'); ?></h3>
+	<ul>
+
+		<li><?php echo $this->Html->link(__('Back to Homepage'), array('action' => 'index'));?></li>
+	</ul>
+	</br>
+	<h3><?php echo __('About Sale with Token'); ?></h3>
+	<?php echo "Fill in herhe"?>
+	</br>
+	</br>
+	<?php echo "Please fill out the information to process a sale"?>
+	</br>
+	</br>
+	
+</div>

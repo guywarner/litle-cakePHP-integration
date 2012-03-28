@@ -34,6 +34,18 @@
 			  	$state = 'Voided';
 			  	$actualValue =NULL;
 			  }
+			   else if(($auth['Auth']['tokenMessage'] == "Approved") || ($auth['Auth']['tokenMessage'] =="Account number was previously registered"))
+			  {
+			  	$state = 'Tokenized';
+			  	$displayValue = array('Sale w/Token');
+			  	$actualValue = array( array('action' => 'saleToken', $auth['Auth']['id']));
+			  }
+			  else if(($auth['Auth']['saleMessage'] == "Approved"))
+			  {
+			  	$state = 'Auth & Captured';
+			  	$displayValue = array('Credit', 'Void');
+			  	$actualValue = array( array('action' => 'credit', $auth['Auth']['id']), array('action' => 'void', $auth['Auth']['id']) );
+			  }
 			  else if ($auth['Auth']['captureMessage'] == "Approved" && $auth['Auth']['creditMessage'] != "Approved")
 			  {
 				  $state = 'Captured';
