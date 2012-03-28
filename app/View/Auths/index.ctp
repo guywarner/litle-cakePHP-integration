@@ -18,7 +18,7 @@
 			  $state = "";
 			  $displayValue = array('');
 			  $actualValue = array('');
-			  if(($auth['Auth']['authMessage'] == "Approved") || ($auth['Auth']['captureMessage'] != "Approved") && ($auth['Auth']['authRevMessage'] != "Approved"))
+			  if(($auth['Auth']['authMessage'] == "Approved") && ($auth['Auth']['captureMessage'] != "Approved") && ($auth['Auth']['authRevMessage'] != "Approved"))
 			  {
 			  	$state = 'Authorized';
 			  	$displayValue = array('Auth Rev.', 'Capture');
@@ -33,6 +33,12 @@
 				  $state = 'Captured';
 				  $displayValue = array('Credit', 'Void');
 			  	  $actualValue = array( array('action' => 'credit', $auth['Auth']['id']), array('action' => 'void', $auth['Auth']['id']) );
+			  }
+			   else if ($auth['Auth']['creditMessage'] == "Approved")
+			  {
+				  $state = 'Refunded';
+				  $displayValue = array('Void');
+			  	  $actualValue = array(array('action' => 'void', $auth['Auth']['id']) );
 			  }
 			  else if($auth['Auth']['response'] != "000" && $auth['Auth']['response'] != "")
 			  {
@@ -50,7 +56,7 @@
 		<td><?php echo h($state); ?>&nbsp;</td>
 		<td><?php echo h($auth['Auth']['amount']); ?>&nbsp;</td>
 		<td><?php echo h($auth['Auth']['message']); ?>&nbsp;</td>
-		<td><?php echo h($auth['Auth']['authMessage']); ?>&nbsp;</td>
+		<td><?php echo h($auth['Auth']['transactionStatus']); ?>&nbsp;</td>
 		<td class="actions"><div align="left">
 		<?php 
 			  if ($state != "Error" && $state != "Auth Reversed"){

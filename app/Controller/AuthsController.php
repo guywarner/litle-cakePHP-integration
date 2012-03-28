@@ -113,6 +113,7 @@ class AuthsController extends AppController {
 			$this->request->data['Auth']['message'] = $message;
 			$this->request->data['Auth']['response'] = $response;
 			$this->request->data['Auth']['authMessage'] = $authMessage;
+			$this->request->data['Auth']['transactionStatus'] = $authMessage;
 			$this->request->data['Auth']['litleTxnId'] = $litleTxnId;
 				
 			$this->Auth->create();
@@ -180,6 +181,8 @@ class AuthsController extends AppController {
 		if (!$this->Auth->exists()) {
 			throw new NotFoundException(__('Invalid auth'));
 		}
+		unset($this->request->data['Auth']['message']);
+		#unset($this->request->data['Auth']['litleTxnId']);
 		if ($this->request->is('post') || $this->request->is('put')) {
 			$hash_in = array('orderId'=> '4',
 										'partial'=>$this->data['Auth']['partial'],
@@ -191,10 +194,14 @@ class AuthsController extends AppController {
 			$captureMessage= XmlParser::getNode($captureResponse,'message');
 			$captureLitleTxnId = XmlParser::getNode($captureResponse,'litleTxnId');
 			$message= XmlParser::getAttribute($captureResponse,'litleOnlineResponse','message');
+			$this->request->data['Auth']['message'] = NULL;
+			$this->request->data['Auth']['litleTxnId'] = NULL;
+			$this->request->data['Auth']['transactionStatus'] = NULL;
 			$this->request->data['Auth']['amount'] = $this->data['Auth']['captureAmount'];
 			$this->request->data['Auth']['message'] = $message;
 			$this->request->data['Auth']['litleTxnId'] = $captureLitleTxnId;
 			$this->request->data['Auth']['captureMessage'] = $captureMessage;
+			$this->request->data['Auth']['transactionStatus'] = $captureMessage;
 			$this->request->data['Auth']['captureLitleTxnId'] = $captureLitleTxnId;
 				
 			if ($this->Auth->save($this->request->data)) {
@@ -230,10 +237,14 @@ class AuthsController extends AppController {
 			$creditLitleTxnId = XmlParser::getNode($creditResponse,'litleTxnId');
 			$creditMessage= XmlParser::getNode($creditResponse,'message');
 			$message= XmlParser::getAttribute($creditResponse,'litleOnlineResponse','message');
+			$this->request->data['Auth']['message'] = NULL;
+			$this->request->data['Auth']['litleTxnId'] = NULL;
+			$this->request->data['Auth']['transactionStatus'] = NULL;
 			$this->request->data['Auth']['amount'] = $this->data['Auth']['creditAmount'];
 			$this->request->data['Auth']['message'] = $message;
 			$this->request->data['Auth']['litleTxnId'] = $creditLitleTxnId;
 			$this->request->data['Auth']['creditMessage'] = $creditMessage;
+			$this->request->data['Auth']['transactionStatus'] = $creditMessage;
 			$this->request->data['Auth']['creditLitleTxnId'] = $creditLitleTxnId;
 				
 			if ($this->Auth->save($this->request->data)) {
@@ -252,8 +263,6 @@ class AuthsController extends AppController {
 		if (!$this->Auth->exists()) {
 			throw new NotFoundException(__('Invalid auth'));
 		}
-		unset($this->request->data['Auth']['message']);
-		unset($this->request->data['Auth']['litleTxnId']);
 		if ($this->request->is('post') || $this->request->is('put')) {
 			$hash_in = array(
 							'litleTxnId'=>$this->Auth->field('litleTxnId')
@@ -263,9 +272,13 @@ class AuthsController extends AppController {
 			$reAuthMessage= XmlParser::getNode($reAuthorizationResponse,'message');
 			$reAuthLitleTxnId = XmlParser::getNode($reAuthorizationResponse,'litleTxnId');
 			$message= XmlParser::getAttribute($reAuthorizationResponse,'litleOnlineResponse','message');
+			unset($this->request->data['Auth']['litleTxnId']);
+			unset($this->request->data['Auth']['message']);
+			unset($this->request->data['Auth']['transactionStatus']);
 			$this->request->data['Auth']['message'] = $message;
 			$this->request->data['Auth']['litleTxnId'] = $reAuthLitleTxnId;
 			$this->request->data['Auth']['authMessage'] = $reAuthMessage;
+			$this->request->data['Auth']['transactionStatus'] = $reAuthMessage;
 			$this->request->data['Auth']['authLitleTxnId'] = $reAuthLitleTxnId;
 		
 			if ($this->Auth->save($this->request->data)) {
@@ -285,8 +298,6 @@ class AuthsController extends AppController {
 		if (!$this->Auth->exists()) {
 			throw new NotFoundException(__('Invalid auth'));
 		}
-		unset($this->request->data['Auth']['message']);
-		unset($this->request->data['Auth']['litleTxnId']);
 		if ($this->request->is('post') || $this->request->is('put')) {
 		
 			$hash_in = array(
@@ -297,9 +308,14 @@ class AuthsController extends AppController {
 			$authRevMessage= XmlParser::getNode($authRevResponse,'message');
 			$authRevLitleTxnId = XmlParser::getNode($authRevResponse,'litleTxnId');
 			$message= XmlParser::getAttribute($authRevResponse,'litleOnlineResponse','message');
+			$this->request->data['Auth']['message'] = NULL;
+			$this->request->data['Auth']['litleTxnId'] = NULL;
+			$this->request->data['Auth']['transactionStatus'] = NULL;
+			$this->request->data['Auth']['authRevLitleTxnId'] = $authRevLitleTxnId;
 			$this->request->data['Auth']['message'] = $message;
 			$this->request->data['Auth']['litleTxnId'] = $authRevLitleTxnId;
 			$this->request->data['Auth']['authRevMessage'] = $authRevMessage;
+			$this->request->data['Auth']['transactionStatus'] = $authRevMessage;
 			$this->request->data['Auth']['authRevLitleTxnId'] = $authRevLitleTxnId;
 		
 			if ($this->Auth->save($this->request->data)) {
@@ -337,10 +353,14 @@ class AuthsController extends AppController {
 			$voidMessage= XmlParser::getNode($voidResponse,'message');
 			$voidLitleTxnId = XmlParser::getNode($voidResponse,'litleTxnId');
 			$message= XmlParser::getAttribute($voidResponse,'litleOnlineResponse','message');
+			$this->request->data['Auth']['message'] = NULL;
+			$this->request->data['Auth']['litleTxnId'] = NULL;
+			$this->request->data['Auth']['transactionStatus'] = NULL;
 			$this->request->data['Auth']['message'] = $message;
 			$this->request->data['Auth']['litleTxnId'] = $voidLitleTxnId;
-			$this->request->data['Auth']['captureMessage'] = $voidMessage;
-			$this->request->data['Auth']['captureLitleTxnId'] = $voidLitleTxnId;
+			$this->request->data['Auth']['voidMessage'] = $voidMessage;
+			$this->request->data['Auth']['transactionStatus'] = $voidMessage;
+			$this->request->data['Auth']['voidLitleTxnId'] = $voidLitleTxnId;
 				
 			if ($this->Auth->save($this->request->data)) {
 				$this->Session->setFlash(__($voidMessage));
