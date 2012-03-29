@@ -28,10 +28,11 @@
 			
 	?></tr>
 	</fieldset>
+	<h3><?php echo __('Additional Values Being Passed:'); ?></h3>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
 		<th><div align="center"><?php echo "Id";?></th>
-		<th><div align="center"><?php echo "litleTxnId";?></th>
+		<th><div align="center"><?php echo "litleToken";?></th>
 	</tr>
 	<tr><div align = "center">
 		<td><div align = "center"><?php echo $this->data['Auth']['id']; ?>&nbsp;</td></div>
