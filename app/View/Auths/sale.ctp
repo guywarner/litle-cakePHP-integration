@@ -3,7 +3,7 @@
 <?php echo $this->Form->create('Auth');?>
 	<fieldset>
 		<legend><?php echo __('Sale'); ?></legend>
-			<h3><?php echo __('Sale Function Gist:'); ?></h3>
+			<h3><?php echo __('SDK Implementation:'); ?></h3>
 			<script src="https://gist.github.com/2007219.js"> </script>
 	<h3><?php echo __('User Input:'); ?></h3>
 	<tr><?php
