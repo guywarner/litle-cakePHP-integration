@@ -32,31 +32,32 @@
 			   else if(($auth['Auth']['voidMessage'] == "Approved"))
 			  {
 			  	$state = 'Voided';
-			  	$actualValue =NULL;
+			  	  $displayValue = array('View');
+			  	   $actualValue = array(array('action' => 'voidView', $auth['Auth']['id']) );
 			  }
 			   else if(($auth['Auth']['tokenMessage'] == "Account number was successfully registered") || ($auth['Auth']['tokenMessage'] =="Account number was previously registered"))
 			  {
 			  	$state = 'Tokenized';
-			  	$displayValue = array('Sale w/Token');
-			  	$actualValue = array( array('action' => 'saleToken', $auth['Auth']['id']));
+			  	$displayValue = array('Sale w/Token','View');
+			  	$actualValue = array( array('action' => 'saleToken', $auth['Auth']['id']),array('action' => 'tokenView', $auth['Auth']['id']));
 			  }
 			  else if(($auth['Auth']['saleMessage'] == "Approved"))
 			  {
 			  	$state = 'Auth & Captured';
-			  	$displayValue = array('Credit', 'Void');
-			  	$actualValue = array( array('action' => 'credit', $auth['Auth']['id']), array('action' => 'void', $auth['Auth']['id']) );
+			  	$displayValue = array('Credit', 'Void','View');
+			  	$actualValue = array( array('action' => 'credit', $auth['Auth']['id']), array('action' => 'void', $auth['Auth']['id']),array('action' => 'saleView', $auth['Auth']['id']));
 			  }
 			  else if ($auth['Auth']['captureMessage'] == "Approved" && $auth['Auth']['creditMessage'] != "Approved")
 			  {
 				  $state = 'Captured';
 				  $displayValue = array('Credit', 'Void','View');
-			  	  $actualValue = array( array('action' => 'credit', $auth['Auth']['id']), array('action' => 'void', $auth['Auth']['id']),array('action' => 'captureView', $auth['Auth']['id']) );
+			  	  $actualValue = array( array('action' => 'credit', $auth['Auth']['id']), array('action' => 'void', $auth['Auth']['id']), array('action' => 'captureView', $auth['Auth']['id']) );
 			  }
 			   else if ($auth['Auth']['creditMessage'] == "Approved")
 			  {
 				  $state = 'Refunded';
-				  $displayValue = array('Void');
-			  	  $actualValue = array(array('action' => 'void', $auth['Auth']['id']) );
+				  $displayValue = array('Void','View');
+			  	   $actualValue = array(array('action' => 'void', $auth['Auth']['id']), array('action' => 'creditView', $auth['Auth']['id']) );
 			  }
 			  else if($auth['Auth']['response'] != "000" && $auth['Auth']['response'] != "")
 			  {

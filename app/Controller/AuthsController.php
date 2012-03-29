@@ -124,6 +124,27 @@ class AuthsController extends AppController {
 		}
 		$this->set('auth', $this->Auth->read(null, $id));
 	}
+	public function tokenView($id = null) {
+		$this->Auth->id = $id;
+		if (!$this->Auth->exists()) {
+			throw new NotFoundException(__('Invalid auth'));
+		}
+		$this->set('auth', $this->Auth->read(null, $id));
+	}
+	public function tokenSaleView($id = null) {
+		$this->Auth->id = $id;
+		if (!$this->Auth->exists()) {
+			throw new NotFoundException(__('Invalid auth'));
+		}
+		$this->set('auth', $this->Auth->read(null, $id));
+	}
+	public function saleView($id = null) {
+		$this->Auth->id = $id;
+		if (!$this->Auth->exists()) {
+			throw new NotFoundException(__('Invalid auth'));
+		}
+		$this->set('auth', $this->Auth->read(null, $id));
+	}
 
 	/**
 	 * add authorization method

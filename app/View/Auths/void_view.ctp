@@ -35,11 +35,29 @@
 <br>
 <br>
 <h3><?php echo __('Related Transactions'); ?></h3>
-	<ul>
+<?php
+	$state = 0; 
+	if($auth['Auth']['authMessage'] != ""){
+	?><ul>
 		<li><?php echo $this->Html->link(__('Auth View'), array('action' => 'authView', $auth['Auth']['id'])); ?> </li>
 		<li><?php echo $this->Html->link(__('Capture View'), array('action' => 'captureView', $auth['Auth']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('Credit View'), array('action' => 'creditView', $auth['Auth']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('Void View'), array('action' => 'voidView', $auth['Auth']['id'])); ?> </li>
 		<li><?php echo $this->Html->link(__('Auth Reversal View'), array('action' => 'authrevView', $auth['Auth']['id'])); ?> </li>
 		<li><?php echo $this->Html->link(__('ReAuth View'), array('action' => 'reauthView', $auth['Auth']['id'])); ?> </li>
-	</ul>
+	</ul><?php
+	}
+	else if($auth['Auth']['saleMessage'] != ""){
+		?><ul>
+		<li><?php echo $this->Html->link(__('Sale View'), array('action' => 'saleView', $auth['Auth']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('Void View'), array('action' => 'voidView', $auth['Auth']['id'])); ?> </li>
+	</ul><?php
+	}
+	else if($auth['Auth']['tokenMessage'] != ""){
+		?><ul>
+		<li><?php echo $this->Html->link(__('Token View'), array('action' => 'tokenView', $auth['Auth']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('Token Sale View'), array('action' => 'tokensaleView', $auth['Auth']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('Void View'), array('action' => 'voidView', $auth['Auth']['id'])); ?> </li>
+	</ul><?php
+	}
+?>
 </div>
