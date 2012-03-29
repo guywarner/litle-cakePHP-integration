@@ -2,7 +2,7 @@
 <div class="auths form">
 <?php echo $this->Form->create('Auth');?>
 	<fieldset>
-		<legend><?php echo __('Edit Authorization'); ?></legend>
+		<legend><?php echo __('Edit Transaction'); ?></legend>
 	<h3><?php echo __('User Input:'); ?></h3>
 	<tr><?php
 	

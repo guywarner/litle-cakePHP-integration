@@ -46,7 +46,7 @@
 	</ul>
 	</br>
 	<h3><?php echo __('About Sale with Token'); ?></h3>
-	<?php echo "Fill in herhe"?>
+	<?php echo "This transaction allows you to perform a sale using a previously registered token instead of a credit card number"?>
 	</br>
 	</br>
 	<?php echo "Please fill out the information to process a sale"?>

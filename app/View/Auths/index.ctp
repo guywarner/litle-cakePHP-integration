@@ -132,7 +132,7 @@
 	</br>
 	</br>
 	<h3><?php echo __('About Tokenization'); ?></h3>
-	<?php echo "Description of Tokenization goes here space fillere space filler space filler space filler"?>
+	<?php echo "The register Token transaction allows you to swap a credit card number for a semi-randomized token number"?>
 	</br>
 	</br>
 	<ul>
@@ -141,4 +141,3 @@
 	</br>
 	<?php echo "Please click the New Token Link Above to begin"?>
 </div>
-

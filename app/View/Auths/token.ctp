@@ -28,10 +28,10 @@
 	</ul>
 	</br>
 	<h3><?php echo __('About Token'); ?></h3>
-	<?php echo "The fill in info here"?>
+	<?php echo "The register Token transaction allows you to swap a credit card number for a semi-randomized token number"?>
 	</br>
 	</br>
-	<?php echo "Please fill out the information to process an register token Request"?>
+	<?php echo "Please fill out the information to  register a credit card number"?>
 	</br>
 	</br>
 	
