@@ -30,7 +30,23 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		echo $this->Html->meta('icon');
 
 		echo $this->Html->css('cake.generic');
-
+		
+		echo $this->Html->script('jquery-1.7.1.min.js');
+		echo $this->Html->script('jquery-ui-1.8.18.custom.min.js');
+		
+		echo "
+		<script>		
+			$(function() {
+				$('.gist').hide();
+				$( '#button' ).click(function() {
+					$('.gist').toggle('blind');
+					return false;
+				});				
+			});
+		</script>
+		";
+		
+		
 		echo $scripts_for_layout;
 	?>
 </head>
