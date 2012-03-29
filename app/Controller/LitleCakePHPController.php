@@ -5,9 +5,7 @@ class LitleCakePHPController extends AppController {
 	
 	}
 	
-	public function add() {
-	
-	}
+
 	
 
 }

@@ -86,7 +86,7 @@ class AuthsController extends AppController {
 	public function add() {
 		if ($this->request->is('post')) {
 			$hash_in = array(
-						'orderId'=> $this->Auth->field('id'),
+						'orderId'=> '123',
 						'amount'=>$this->data['Auth']['amount'],
 						'orderSource'=>'ecommerce',
 						'billToAddress'=>array(
@@ -149,9 +149,8 @@ class AuthsController extends AppController {
 									'addressLine1'=>$this->data['Auth']['address1'],
 									'city'=>$this->data['Auth']['city'],
 									'state'=>$this->data['Auth']['state'],
-									'country'=>$this->data['Auth']['country'],
-									'zip'=>$this->data['Auth']['zip'],
-									'email'=>$this->data['Auth']['email']),
+									'country'=>'US',
+									'zip'=>$this->data['Auth']['zip']),
 							'card'=> array(
 									'type'=>$this->data['Auth']['type'],
 									'number'=>$this->data['Auth']['number'],
@@ -159,7 +158,7 @@ class AuthsController extends AppController {
 									'cardValidationNum'=>$this->data['Auth']['cardValidationNum']));
 				$initilaize = &new LitleOnlineRequest();
 				@$authorizationResponse = $initilaize->authorizationRequest($hash_in);
-				//$message= XmlParser::getAttribute($authorizationResponse,'litleOnlineResponse','message');
+				$message= XmlParser::getAttribute($authorizationResponse,'litleOnlineResponse','message');
 				$this->Session->setFlash(__($message));
 
 				$this->redirect(array('action' => 'index'));
@@ -425,7 +424,6 @@ class AuthsController extends AppController {
 	public function token() {
 		if ($this->request->is('post')) {
 			$hash_in = array(
-										'orderId'=> $this->Auth->field('id'),
 										'accountNumber'=>AuthsController::getFormData('number')
 			);
 

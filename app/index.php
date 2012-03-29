@@ -16,4 +16,4 @@
  */
 require 'webroot' . DIRECTORY_SEPARATOR . 'index.php';
 
-echo '123';
+
