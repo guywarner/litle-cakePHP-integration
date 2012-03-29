@@ -40,7 +40,7 @@
 			  {
 			  	$state = 'Tokenized';
 			  	$displayValue = array('Sale w/Token','View');
-			  	$actualValue = array( array('action' => 'saleToken', $auth['Auth']['id']),array('action' => 'tokenSaleView', $auth['Auth']['id']));
+			  	$actualValue = array( array('action' => 'saleToken', $auth['Auth']['id']),array('action' => 'tokenView', $auth['Auth']['id']));
 			  }
 			  else if(($auth['Auth']['saleMessage'] == "Approved"))
 			  {

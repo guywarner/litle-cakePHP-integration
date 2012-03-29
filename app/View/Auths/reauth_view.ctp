@@ -45,6 +45,6 @@
 		<li><?php echo $this->Html->link(__('Capture View'), array('action' => 'captureView', $auth['Auth']['id'])); ?> </li>
 		<li><?php echo $this->Html->link(__('Credit View'), array('action' => 'creditView', $auth['Auth']['id'])); ?> </li>
 		<li><?php echo $this->Html->link(__('Void View'), array('action' => 'voidView', $auth['Auth']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('Auth Reversal View'), array('action' => 'authRevView', $auth['Auth']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('Auth Reversal View'), array('action' => 'authrevView', $auth['Auth']['id'])); ?> </li>
 	</ul>
 </div>
