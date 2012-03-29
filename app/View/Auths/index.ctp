@@ -40,13 +40,19 @@
 			  {
 			  	$state = 'Tokenized';
 			  	$displayValue = array('Sale w/Token','View');
-			  	$actualValue = array( array('action' => 'saleToken', $auth['Auth']['id']),array('action' => 'tokenView', $auth['Auth']['id']));
+			  	$actualValue = array( array('action' => 'saleToken', $auth['Auth']['id']),array('action' => 'tokenSaleView', $auth['Auth']['id']));
 			  }
 			  else if(($auth['Auth']['saleMessage'] == "Approved"))
 			  {
 			  	$state = 'Auth & Captured';
 			  	$displayValue = array('Credit', 'Void','View');
 			  	$actualValue = array( array('action' => 'credit', $auth['Auth']['id']), array('action' => 'void', $auth['Auth']['id']),array('action' => 'saleView', $auth['Auth']['id']));
+			  }
+			  else if(($auth['Auth']['tokenSaleMessage'] == "Approved"))
+			  {
+			  	$state = 'Auth & Captured';
+			  	$displayValue = array('Credit', 'Void','View');
+			  	$actualValue = array( array('action' => 'credit', $auth['Auth']['id']), array('action' => 'void', $auth['Auth']['id']),array('action' => 'tokenSaleView', $auth['Auth']['id']));
 			  }
 			  else if ($auth['Auth']['captureMessage'] == "Approved" && $auth['Auth']['creditMessage'] != "Approved")
 			  {

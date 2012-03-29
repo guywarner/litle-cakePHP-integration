@@ -393,10 +393,11 @@ class AuthsController extends AppController {
 				$saleLitleTxnId = XmlParser::getNode($saleResponse,'litleTxnId');
 				$this->request->data['Auth']['message'] = $message;
 				$this->request->data['Auth']['response'] = $response;
-				$this->request->data['Auth']['saleMessage'] = $saleMessage;
+				#$this->request->data['Auth']['saleMessage'] = $saleMessage;
 				$this->request->data['Auth']['transactionStatus'] = $saleMessage;
 				$this->request->data['Auth']['litleTxnId'] = $saleLitleTxnId;
-				$this->request->data['Auth']['saleLitleTxnId'] = $saleLitleTxnId;
+				$this->request->data['Auth']['tokenSaleLitleTxnId'] = $saleLitleTxnId;
+				$this->request->data['Auth']['tokenSaleMessage'] = $saleMessage;
 		
 				$this->Auth->create();
 				if ($this->Auth->save($this->request->data)) {
