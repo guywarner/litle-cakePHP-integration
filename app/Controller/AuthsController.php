@@ -32,7 +32,7 @@ class AuthsController extends AppController {
 				}
 				if ($notEmpty){
 					$data_out[$key] = $data_in[$key];
-					AuthsController::purgeNull($value, $data_out[$key]);
+					$this->purgeNull($value, $data_out[$key]);
 				}
 
 			}
@@ -54,6 +54,10 @@ class AuthsController extends AppController {
 		}
 	}
 
+	function getOrderId()
+	{
+		return rand(0,50000);
+	}
 	/**
 	 * index method
 	 *
@@ -86,23 +90,23 @@ class AuthsController extends AppController {
 	public function add() {
 		if ($this->request->is('post')) {
 			$hash_in = array(
-						'orderId'=> '123',
+						'orderId'=> $this->getOrderId(),
 						'amount'=>$this->data['Auth']['amount'],
 						'orderSource'=>'ecommerce',
 						'billToAddress'=>array(
-								'name'=>AuthsController::getFormData('name'),
-								'addressLine1'=>AuthsController::getFormData('address1'),
-								'city'=>AuthsController::getFormData('city'),
-								'state'=>AuthsController::getFormData('state'),
+								'name'=>$this->getFormData('name'),
+								'addressLine1'=>$this->getFormData('address1'),
+								'city'=>$this->getFormData('city'),
+								'state'=>$this->getFormData('state'),
 								'country'=>'US',
-								'zip'=>AuthsController::getFormData('zip')),
+								'zip'=>$this->getFormData('zip')),
 						'card'=> array(
-								'type'=>AuthsController::getFormData('type'),
-								'number'=>AuthsController::getFormData('number'),
-								'expDate'=>AuthsController::getFormData('expDate'),
-								'cardValidationNum'=>AuthsController::getFormData('cardValidationNum')));
+								'type'=>$this->getFormData('type'),
+								'number'=>$this->getFormData('number'),
+								'expDate'=>$this->getFormData('expDate'),
+								'cardValidationNum'=>$this->getFormData('cardValidationNum')));
 				
-			$hash_out = AuthsController::purgeNull($hash_in);
+			$hash_out = $this->purgeNull($hash_in);
 				
 			$initilaize = &new LitleOnlineRequest();
 			@$authorizationResponse = $initilaize->authorizationRequest($hash_out);
@@ -248,7 +252,7 @@ class AuthsController extends AppController {
 				
 			if ($this->Auth->save($this->request->data)) {
 
-				$this->Session->setFlash(__($creditMessage));
+				$this->Session->setFlash(__($message));
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The auth could not be saved. Please, try again.'));
@@ -302,19 +306,19 @@ class AuthsController extends AppController {
 								'amount'=>$this->data['Auth']['amount'],
 								'orderSource'=>'ecommerce',
 								'billToAddress'=>array(
-										'name'=>AuthsController::getFormData('name'),
-										'addressLine1'=>AuthsController::getFormData('address1'),
-										'city'=>AuthsController::getFormData('city'),
-										'state'=>AuthsController::getFormData('state'),
+										'name'=>$this->getFormData('name'),
+										'addressLine1'=>$this->getFormData('address1'),
+										'city'=>$this->getFormData('city'),
+										'state'=>$this->getFormData('state'),
 										'country'=>'US',
-										'zip'=>AuthsController::getFormData('zip')),
+										'zip'=>$this->getFormData('zip')),
 								'token'=> array(
 										'litleToken'=>$this->Auth->field('litleToken'),
-										'expDate'=>AuthsController::getFormData('expDate'),
-										'cardValidationNum'=>AuthsController::getFormData('cardValidationNum'),
-										'type'=>AuthsController::getFormData('type')));
+										'expDate'=>$this->getFormData('expDate'),
+										'cardValidationNum'=>$this->getFormData('cardValidationNum'),
+										'type'=>$this->getFormData('type')));
 		
-				$hash_out = AuthsController::purgeNull($hash_in);
+				$hash_out = $this->purgeNull($hash_in);
 		
 				$initilaize = &new LitleOnlineRequest();
 				@$saleResponse = $initilaize->saleRequest($hash_out);
@@ -381,23 +385,23 @@ class AuthsController extends AppController {
 	public function sale() {
 			if ($this->request->is('post')) {
 				$hash_in = array(
-								'orderId'=> $this->Auth->field('id'),
+								'orderId'=> $this->getOrderId(),
 								'amount'=>$this->data['Auth']['amount'],
 								'orderSource'=>'ecommerce',
 								'billToAddress'=>array(
-										'name'=>AuthsController::getFormData('name'),
-										'addressLine1'=>AuthsController::getFormData('address1'),
-										'city'=>AuthsController::getFormData('city'),
-										'state'=>AuthsController::getFormData('state'),
+										'name'=>$this->getFormData('name'),
+										'addressLine1'=>$this->getFormData('address1'),
+										'city'=>$this->getFormData('city'),
+										'state'=>$this->getFormData('state'),
 										'country'=>'US',
-										'zip'=>AuthsController::getFormData('zip')),
+										'zip'=>$this->getFormData('zip')),
 								'card'=> array(
-										'type'=>AuthsController::getFormData('type'),
-										'number'=>AuthsController::getFormData('number'),
-										'expDate'=>AuthsController::getFormData('expDate'),
-										'cardValidationNum'=>AuthsController::getFormData('cardValidationNum')));
+										'type'=>$this->getFormData('type'),
+										'number'=>$this->getFormData('number'),
+										'expDate'=>$this->getFormData('expDate'),
+										'cardValidationNum'=>$this->getFormData('cardValidationNum')));
 		
-				$hash_out = AuthsController::purgeNull($hash_in);
+				$hash_out = $this->purgeNull($hash_in);
 		
 				$initilaize = &new LitleOnlineRequest();
 				@$saleResponse = $initilaize->saleRequest($hash_out);
@@ -424,10 +428,10 @@ class AuthsController extends AppController {
 	public function token() {
 		if ($this->request->is('post')) {
 			$hash_in = array(
-										'accountNumber'=>AuthsController::getFormData('number')
+										'accountNumber'=>$this->getFormData('number')
 			);
 
-			$hash_out = AuthsController::purgeNull($hash_in);
+			$hash_out = $this->purgeNull($hash_in);
 		
 			$initilaize = &new LitleOnlineRequest();
 			@$registerTokenResponse = $initilaize->registerTokenRequest($hash_out);

@@ -1,4 +1,4 @@
-<h1> <?php echo $this->Html->image('Litle.jpg');?></h1>
+<h1><a href="http://www.Litle.com/developers"><?php echo $this->Html->image('Litle.jpg');?></a></h1>
 <div class="auths form">
 <?php echo $this->Form->create('Auth');?>
 	<fieldset>
