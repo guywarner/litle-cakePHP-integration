@@ -20,6 +20,8 @@
 		echo $this->Form->input('address1');
 		echo $this->Form->input('city');
 		echo $this->Form->input('state');
+		$countries = $this->data['Auth']['countries'];
+		echo $this->Form->input('country',array('type'=>'select','options'=>$countries));
 		echo $this->Form->input('zip');
 		$options = array('VI'=>'VI','MC'=>'MC','AX'=>'AX','DC'=>'DC');
 		echo $this->Form->input('type',array('type'=>'select','options'=>$options));

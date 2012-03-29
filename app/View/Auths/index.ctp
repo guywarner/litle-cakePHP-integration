@@ -21,8 +21,8 @@
 			  if(($auth['Auth']['authMessage'] == "Approved") && ($auth['Auth']['captureMessage'] != "Approved") && ($auth['Auth']['authRevMessage'] != "Approved"))
 			  {
 			  	$state = 'Authorized';
-			  	$displayValue = array('Auth Rev.', 'Capture');
-			  	$actualValue = array( array('action' => 'authReversal', $auth['Auth']['id']), array('action' => 'capture', $auth['Auth']['id']) );
+			  	$displayValue = array('Auth Rev.', 'Capture', 'View');
+			  	$actualValue = array( array('action' => 'authReversal', $auth['Auth']['id']), array('action' => 'capture', $auth['Auth']['id']), array('action' => 'authView', $auth['Auth']['id']));
 			  }
 			  else if(($auth['Auth']['authRevMessage'] == "Approved"))
 			  {
@@ -34,7 +34,7 @@
 			  	$state = 'Voided';
 			  	$actualValue =NULL;
 			  }
-			   else if(($auth['Auth']['tokenMessage'] == "Approved") || ($auth['Auth']['tokenMessage'] =="Account number was previously registered"))
+			   else if(($auth['Auth']['tokenMessage'] == "Account number was successfully registered") || ($auth['Auth']['tokenMessage'] =="Account number was previously registered"))
 			  {
 			  	$state = 'Tokenized';
 			  	$displayValue = array('Sale w/Token');
@@ -49,8 +49,8 @@
 			  else if ($auth['Auth']['captureMessage'] == "Approved" && $auth['Auth']['creditMessage'] != "Approved")
 			  {
 				  $state = 'Captured';
-				  $displayValue = array('Credit', 'Void');
-			  	  $actualValue = array( array('action' => 'credit', $auth['Auth']['id']), array('action' => 'void', $auth['Auth']['id']) );
+				  $displayValue = array('Credit', 'Void','View');
+			  	  $actualValue = array( array('action' => 'credit', $auth['Auth']['id']), array('action' => 'void', $auth['Auth']['id']),array('action' => 'captureView', $auth['Auth']['id']) );
 			  }
 			   else if ($auth['Auth']['creditMessage'] == "Approved")
 			  {
@@ -84,7 +84,6 @@
 			  		echo $this->Html->link(__($displayValue[$i]), $actualValue[$i]);
 			  	}
 			  }
-			  echo $this->Html->link(__('View'), array('action' => 'view', $auth['Auth']['id']));
 		?>
 		</div></td>
 	</tr>
