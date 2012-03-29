@@ -37,8 +37,8 @@
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('Edit Auth'), array('action' => 'edit', $auth['Auth']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Auth'), array('action' => 'delete', $auth['Auth']['id']), null, __('Are you sure you want to delete # %s?', $auth['Auth']['id'])); ?> </li>
+	<li><?php echo $this->Html->link(__('Edit Transaction'), array('action' => 'edit', $auth['Auth']['id'])); ?> </li>
+		<li><?php echo $this->Form->postLink(__('Delete Transaction'), array('action' => 'delete', $auth['Auth']['id']), null, __('Are you sure you want to delete # %s?', $auth['Auth']['id'])); ?> </li>
 		<li><?php echo $this->Html->link(__('Back to  Homepage'), array('action' => 'index')); ?> </li>
 	</ul>
 	<br>
