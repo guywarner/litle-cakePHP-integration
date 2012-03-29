@@ -119,6 +119,27 @@ div.view {
 	border-left:1px solid #666;
 	padding:10px 2%;
 }
+div.formCustom {
+	float:right;
+	width:38%;
+	border-left:1px solid #666;
+	padding:10px 2%;
+}
+div.viewCustom {
+	float:right;
+	width:38%;
+	border-left:1px solid #666;
+	padding:10px 2%;
+}
+div.actionsCustom {
+	float:left;
+	width:24%;
+	padding:10px 1.5%;
+}
+div.actionsCustom h3 {
+	padding-top:0;
+	color:#777;
+}
 div.actions {
 	float:left;
 	width:16%;

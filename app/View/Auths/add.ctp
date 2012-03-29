@@ -3,13 +3,8 @@
 <?php echo $this->Form->create('Auth');?>
 	<fieldset>
 		<legend><?php echo __('Authorization'); ?></legend>
-			<h3><?php echo __('Auth Function Gist:'); ?></h3>
-	</br>
-	</br>
-	</br>
-	</br>
-	</br>
-	</br>
+			<h3><?php echo __('SDK Implementation:'); ?></h3>
+			<script src="https://gist.github.com/2007176.js"> </script>
 	<h3><?php echo __('User Input:'); ?></h3>
 	<tr><?php
 	
