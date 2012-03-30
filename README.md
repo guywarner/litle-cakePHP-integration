@@ -20,7 +20,9 @@ To Set Up Locally
 3. Replace the app folder in cakePHP with the app folder for the git repository
 
 4. Import the database to mysql
- mysql -u LitleCakePHP cake<~rganmukh/git/litle-cakePHP-integration/app/Config/Schema/filename.sql
+
+>mysql -u LitleCakePHP cake<~rganmukh/git/litle-cakePHP-integration/app/Config/Schema/filename.sql
 
 5. navigate to litle-cakePHP-integration/index.php inside a browser to view demo webb application
 
+Please contact Lilte & Co. with any further questions.   You can reach us at SDKSupport@litle.com
