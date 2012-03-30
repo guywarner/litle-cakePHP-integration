@@ -14,14 +14,18 @@ function toggle() {
 	<fieldset>
 		<h3><?php echo __('CAPTURE'); ?></h3>
 		<a id="button" style="cursor: pointer"><?php echo __('SDK Implementation'); ?></a>
-		<div id="effect" class = "effect gist" title="SDK Implementation">
-			Full Capture: <br><br>
+		<div id="effect" class = "effect" title="SDK Implementation">
+			<div class = "gist">
+				Full Capture: <br><br>
+			</div>
 			<script src="https://gist.github.com/2007140.js"> </script>
-			Partial Capture: <br><br>
+			<div class = "gist">
+				Partial Capture: <br><br>
+			</div>
 			<script src="https://gist.github.com/2007034.js"> </script>
 			<br>
 		</div>
-		<br><br><br><br>
+		
 	
 	<h3><?php echo __('User Input:'); ?></h3>
 	<table>
