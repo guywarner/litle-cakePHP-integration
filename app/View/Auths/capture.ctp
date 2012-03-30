@@ -1,4 +1,14 @@
 <h1><a href="http://www.Litle.com/developers"><?php echo $this->Html->image('Litle.jpg');?></a></h1>
+<script>
+function toggle() {
+  var checkbox = document.getElementById("AuthPartial");
+  var toggle = document.getElementById("AuthCaptureAmount");
+  if(!checkbox.checked){
+  	toggle.value="";
+  }
+  updateToggle = checkbox.checked ? toggle.disabled=false : toggle.disabled=true;
+}
+</script>
 <div class="auths form">
 <?php echo $this->Form->create('Auth');?>
 	<fieldset>
@@ -9,10 +19,23 @@
 		</div>
 	
 	<h3><?php echo __('User Input:'); ?></h3>
-	<?php
-		echo $this->Form->input('amount');
-	?>
-	<?php echo $this->Form->checkbox('partial', array('checked' => false));echo 'partial capture?'; ?>
+	<table>
+		<tr>
+			<td style="text-align: left;">
+				<div class="input text">
+					<label for="AuthCaptureAmount">Capture Amount</label>
+					<input name="data[Auth][captureAmount]" maxlength="20" type="text" id="AuthCaptureAmount" disabled="true"/>
+				</div>
+			</td>
+			<td>
+				(if left blank, the entire authorized amount will be captured)
+			</td>
+		</tr>
+		<tr>
+		<td colspan = "2" style="text-align: left;"><input type="hidden" name="data[Auth][partial]" id="AuthPartial_" value="0"/><input type="checkbox" name="data[Auth][partial]"  value="1" id="AuthPartial" onClick="toggle()"/>Partial Capture?</td>
+		</tr>
+	</table>
+	
 	</fieldset>
 	<h3><?php echo __('Additional Values Being Passed:'); ?></h3>
 	<table cellpadding="0" cellspacing="0">

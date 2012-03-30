@@ -8,9 +8,18 @@
 			<script src="https://gist.github.com/2007013.js"> </script>
 		</div>
 	<h3><?php echo __('User Input:'); ?></h3>
+	<table>
+		<tr>
+			<td style="text-align: left;">
 	<?php
-		echo $this->Form->input('creditAmount');
+		echo $this->Form->input('creditAmount',array('label'=> "Credit Amount:"));
 	?>
+			</td>
+			<td>
+				(if left blank, the entire captured amount will be refunded)
+			</td>
+		</tr>
+	</table>
 	</fieldset>
 	<h3><?php echo __('Additional Values Being Passed:'); ?></h3>
 	<table cellpadding="0" cellspacing="0">

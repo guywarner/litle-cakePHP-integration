@@ -21,8 +21,8 @@ To Set Up Locally
 
 4. Import the table into mysql, adjust the app/config/database file to match your db settings
 
-> mysql -u user cake<~/git/litle-cakePHP-integration/app/Config/Schema/filename.sql
+> mysql -u user cake<~/git/litle-cakePHP-integration/app/Config/Schema/litleDemoTable.sql
 
 5. navigate to litle-cakePHP-integration/index.php inside a browser to view demo webb application
 
-Please contact Lilte & Co. with any further questions.   You can reach us at SDKSupport@litle.com
+Please contact Lilte & Co. with any further questions. You can reach us at SDKSupport@litle.com
