@@ -2,7 +2,7 @@
 <div class="auths form">
 <?php echo $this->Form->create('Auth');?>
 	<fieldset>
-		<legend><?php echo __('Register Token'); ?></legend>
+		<h3><?php echo __('Register Token'); ?></h3>
 		<a id="button" style="cursor: pointer"><?php echo __('SDK Implementation'); ?></a>
 		<div id="effect" class = "effect" title="SDK Implementation">
 			<script src="https://gist.github.com/2243156.js"> </script>
@@ -30,7 +30,12 @@
 	<?php echo "Please fill out the information to  register a credit card number"?>
 	</br>
 	</br>
-	
-	<h1><?php echo ('Sample CreditCard Numbers:'); ?></h1>
-	
+	<h3><?php echo ('Sample CreditCards:'); ?></h3>
+	<table class="center" style="font-size:10pt">
+	<tr><th colspan=2><h4>Sucessful</h4></th></tr>
+	<tr><td>4457119922390123</td><td>Approved</td></tr>
+	<tr><td>4445000011111801</td><td>Approved</td></tr>
+	<tr><td>4475000011231801</td><td>Approved</td></tr>
+	<tr><td>5475088011231801</td><td>Approved</td></tr>
+	</table>
 </div>

@@ -2,7 +2,7 @@
 <div class="auths form">
 <?php echo $this->Form->create('Auth');?>
 	<fieldset>
-		<legend><?php echo __('VOID'); ?></legend>
+		<h3><?php echo __('VOID'); ?></h3>
 		<a id="button" style="cursor: pointer"><?php echo __('SDK Implementation'); ?></a>
 		<div id="effect" class = "effect" title="SDK Implementation">
 			<script src="https://gist.github.com/2242972.js"> </script>

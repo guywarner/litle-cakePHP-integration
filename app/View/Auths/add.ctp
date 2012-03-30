@@ -2,7 +2,7 @@
 <div class="auths form">
 <?php echo $this->Form->create('Auth');?>
 	<fieldset>
-		<legend><?php echo __('Authorization'); ?></legend>
+		<h3><?php echo __('Authorization'); ?></h3>
 		
 		<a id="button" style="cursor: pointer"><?php echo __('SDK Implementation'); ?></a>
 		<div id="effect" class = "effect" title="SDK Implementation">
@@ -46,7 +46,20 @@
 	<?php echo "Please fill out the information to process an authorization"?>
 	</br>
 	</br>
-	
-	<h1><?php echo ('Sample CreditCard Numbers:'); ?></h1>
-	
+	<h3><?php echo ('Sample CreditCards:'); ?></h3>
+	<table class="center" style="font-size:10pt">
+	<tr><th colspan=2><h4>Sucessful</h4></th></tr>
+	<tr><td>VI 4457010000000009</td><td>Approved</td></tr>
+	<tr><td>MC 5112010000000003</td><td>Approved</td></tr>
+	<tr><td>DI 6011010000000003</td><td>Approved</td></tr>
+	<tr><td>AX 375001000000005</td><td>Approved</td></tr>
+	<tr><td>VI 4457010200000007</td><td>Approved</td></tr>
+	</table>
+	<table class="center" style="font-size:10pt">
+	<tr><th colspan=2><h4>Unsucessful</h4></th></tr>
+	<tr><td align="center">VI 4457010100000008</td><td align="center">Insufficient Funds</td></tr>
+	<tr><td>MC 5112010100000002</td><td>Invalid Account Number</td></tr>
+	<tr><td>DI 6011010100000002</td><td>Call Discover</td></tr>
+	<tr><td>AX 375001010000003</td><td>Pick up Card</td></tr>
+	</table>
 </div>

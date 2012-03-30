@@ -7,9 +7,6 @@
 	</fieldset>
 <?php ?>
 
-
-
-
 <div class="actions">
 	<ul>
 	</br>
