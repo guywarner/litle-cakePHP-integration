@@ -32,8 +32,7 @@ function toggle() {
 		<tr>
 			<td style="text-align: left;">
 				<div class="input text">
-					<label for="AuthCaptureAmount">Capture Amount</label>
-					<input name="data[Auth][captureAmount]" maxlength="20" type="text" id="AuthCaptureAmount" disabled="true"/>
+					<?php echo $this->Form->input('captureAmount',array('disabled'=>TRUE,'onClick'=>"toggle()"));?>
 				</div>
 			</td>
 			<td>
