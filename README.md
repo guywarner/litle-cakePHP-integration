@@ -15,14 +15,18 @@ To Set Up Locally
 
 > git clone git://github.com/LitleCo/litle-cakePHP-integration.git
 
-2. Create a symbolic link to the folder or drop it into the /var/www/html directory
+2. Run PHP SDK setup
+
+> PHP app/lib/litle/Setup.php
+
+3. Create a symbolic link to the folder or drop it into the /var/www/html directory
 
 > ln -s ~git/litle-cakePHP-integration /var/www/html/LitleCakePHP
 
-4. Import the table into mysql, adjust the app/config/database file to match your db settings
+4. Import the table into mysql, adjust the app/config/database file to match your database settings
 
 > mysql -u user cake<~/git/litle-cakePHP-integration/app/Config/Schema/litleDemoTable.sql
 
-5. navigate to litle-cakePHP-integration/index.php inside a browser to view demo webb application
+5. navigate to litle-cakePHP-integration/index.php inside a browser to view demo web application
 
 Please contact Lilte & Co. with any further questions. You can reach us at SDKSupport@litle.com
