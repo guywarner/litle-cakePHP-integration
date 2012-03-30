@@ -3,7 +3,8 @@
 <?php echo $this->Form->create('Auth');?>
 	<fieldset>
 		<legend><?php echo __('Register Token'); ?></legend>
-			<h3><?php echo __('token Function Gist:'); ?></h3>
+			<h3><?php echo __('SDK Implementation:'); ?></h3>
+			<script src="https://gist.github.com/2243156.js"> </script>
 	</br>
 	</br>
 	</br>
@@ -27,10 +28,10 @@
 	</ul>
 	</br>
 	<h3><?php echo __('About Token'); ?></h3>
-	<?php echo "The fill in info here"?>
+	<?php echo "The register Token transaction allows you to swap a credit card number for a semi-randomized token number"?>
 	</br>
 	</br>
-	<?php echo "Please fill out the information to process an register token Request"?>
+	<?php echo "Please fill out the information to  register a credit card number"?>
 	</br>
 	</br>
 	

@@ -3,13 +3,8 @@
 <?php echo $this->Form->create('Auth');?>
 	<fieldset>
 		<legend><?php echo __('Sale with Token'); ?></legend>
-			<h3><?php echo __('Sale with Token Function Gist:'); ?></h3>
-	</br>
-	</br>
-	</br>
-	</br>
-	</br>
-	</br>
+			<h3><?php echo __('SDK Implementation:'); ?></h3>
+			<script src="https://gist.github.com/2243367.js"> </script>
 	<h3><?php echo __('User Input:'); ?></h3>
 	<tr><?php
 	
@@ -51,7 +46,7 @@
 	</ul>
 	</br>
 	<h3><?php echo __('About Sale with Token'); ?></h3>
-	<?php echo "Fill in herhe"?>
+	<?php echo "This transaction allows you to perform a sale using a previously registered token instead of a credit card number"?>
 	</br>
 	</br>
 	<?php echo "Please fill out the information to process a sale"?>

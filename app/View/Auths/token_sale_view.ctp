@@ -91,7 +91,7 @@
 <br>
 <h3><?php echo __('Related Transactions'); ?></h3>
 	<ul>	
-		<li><?php echo $this->Html->link(__('Token Sale View'), array('action' => 'tokenSaleView', $auth['Auth']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('Token View'), array('action' => 'tokenView', $auth['Auth']['id'])); ?> </li>
 		<li><?php echo $this->Html->link(__('Credit View'), array('action' => 'creditView', $auth['Auth']['id'])); ?> </li>
 		<li><?php echo $this->Html->link(__('Void View'), array('action' => 'voidView', $auth['Auth']['id'])); ?> </li>
 	</ul>

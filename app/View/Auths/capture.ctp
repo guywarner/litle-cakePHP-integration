@@ -7,9 +7,9 @@
 	<script src="https://gist.github.com/2007140.js"> </script>
 	<h3><?php echo __('User Input:'); ?></h3>
 	<?php
-		echo $this->Form->input('captureAmount');
+		echo $this->Form->input('amount');
 	?>
-	<?php echo $this->Form->checkbox('partial');echo 'partial capture?'; ?>
+	<?php echo $this->Form->checkbox('partial', array('checked' => false));echo 'partial capture?'; ?>
 	</fieldset>
 	<h3><?php echo __('Additional Values Being Passed:'); ?></h3>
 	<table cellpadding="0" cellspacing="0">

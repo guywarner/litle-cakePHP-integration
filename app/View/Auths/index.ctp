@@ -48,6 +48,12 @@
 			  	$displayValue = array('Credit', 'Void','View');
 			  	$actualValue = array( array('action' => 'credit', $auth['Auth']['id']), array('action' => 'void', $auth['Auth']['id']),array('action' => 'saleView', $auth['Auth']['id']));
 			  }
+			  else if(($auth['Auth']['tokenSaleMessage'] == "Approved"))
+			  {
+			  	$state = 'Auth & Captured';
+			  	$displayValue = array('Credit', 'Void','View');
+			  	$actualValue = array( array('action' => 'credit', $auth['Auth']['id']), array('action' => 'void', $auth['Auth']['id']),array('action' => 'tokenSaleView', $auth['Auth']['id']));
+			  }
 			  else if ($auth['Auth']['captureMessage'] == "Approved" && $auth['Auth']['creditMessage'] != "Approved")
 			  {
 				  $state = 'Captured';
@@ -132,7 +138,7 @@
 	</br>
 	</br>
 	<h3><?php echo __('About Tokenization'); ?></h3>
-	<?php echo "Description of Tokenization goes here space fillere space filler space filler space filler"?>
+	<?php echo "The register Token transaction allows you to swap a credit card number for a semi-randomized token number"?>
 	</br>
 	</br>
 	<ul>
@@ -141,4 +147,3 @@
 	</br>
 	<?php echo "Please click the New Token Link Above to begin"?>
 </div>
-

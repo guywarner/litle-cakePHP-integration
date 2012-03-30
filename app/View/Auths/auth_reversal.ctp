@@ -3,13 +3,9 @@
 <?php echo $this->Form->create('Auth');?>
 	<fieldset>
 		<legend><?php echo __('Authorization Reversal'); ?></legend>
-	<h3><?php echo __('Auth Reversal Function Gist:'); ?></h3>
-	</br>
-	</br>
-	</br>
-	</br>
-	</br>
-	</br>
+	<h3><?php echo __('SDK Implementation:'); ?></h3>
+	<script src="https://gist.github.com/2230606.js"> </script>
+	
 	</fieldset>
 	<h3><?php echo __('Additional Values Being Passed:'); ?></h3>
 	<table cellpadding="0" cellspacing="0">
