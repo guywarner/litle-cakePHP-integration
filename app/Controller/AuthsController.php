@@ -181,6 +181,7 @@ class AuthsController extends AppController {
 			$authLitleTxnId = XmlParser::getNode($authorizationResponse,'litleTxnId');
 			$this->request->data['Auth']['message'] = $message;
 			$this->request->data['Auth']['response'] = $response;
+			$this->request->data['Auth']['authResponse'] = $response;
 			$this->request->data['Auth']['authMessage'] = $authMessage;
 			$this->request->data['Auth']['transactionStatus'] = $authMessage;
 			$this->request->data['Auth']['litleTxnId'] = $authLitleTxnId;
@@ -264,6 +265,8 @@ class AuthsController extends AppController {
 			$captureMessage= XmlParser::getNode($captureResponse,'message');
 			$captureLitleTxnId = XmlParser::getNode($captureResponse,'litleTxnId');
 			$message= XmlParser::getAttribute($captureResponse,'litleOnlineResponse','message');
+			$response = XmlParser::getNode($captureResponse,'response');
+			$this->request->data['Auth']['captureResponse'] = $response;
 			$this->request->data['Auth']['message'] = NULL;
 			$this->request->data['Auth']['litleTxnId'] = NULL;
 			$this->request->data['Auth']['transactionStatus'] = NULL;
@@ -307,6 +310,8 @@ class AuthsController extends AppController {
 			$creditLitleTxnId = XmlParser::getNode($creditResponse,'litleTxnId');
 			$creditMessage= XmlParser::getNode($creditResponse,'message');
 			$message= XmlParser::getAttribute($creditResponse,'litleOnlineResponse','message');
+			$response = XmlParser::getNode($creditResponse,'response');
+			$this->request->data['Auth']['creditResponse'] = $response;
 			$this->request->data['Auth']['message'] = NULL;
 			$this->request->data['Auth']['litleTxnId'] = NULL;
 			$this->request->data['Auth']['transactionStatus'] = NULL;
@@ -342,6 +347,8 @@ class AuthsController extends AppController {
 			$reAuthMessage= XmlParser::getNode($reAuthorizationResponse,'message');
 			$reAuthLitleTxnId = XmlParser::getNode($reAuthorizationResponse,'litleTxnId');
 			$message= XmlParser::getAttribute($reAuthorizationResponse,'litleOnlineResponse','message');
+			$response = XmlParser::getNode($reAuthorizationResponse,'response');
+			$this->request->data['Auth']['response'] = $response;
 			unset($this->request->data['Auth']['litleTxnId']);
 			unset($this->request->data['Auth']['message']);
 			unset($this->request->data['Auth']['transactionStatus']);
@@ -393,6 +400,7 @@ class AuthsController extends AppController {
 			$response = XmlParser::getNode($saleResponse,'response');
 			$saleMessage = XmlParser::getNode($saleResponse,'message');
 			$saleLitleTxnId = XmlParser::getNode($saleResponse,'litleTxnId');
+			$this->request->data['Auth']['saleResponse'] = $response;
 			$this->request->data['Auth']['message'] = $message;
 			$this->request->data['Auth']['response'] = $response;
 			#$this->request->data['Auth']['saleMessage'] = $saleMessage;
@@ -430,6 +438,8 @@ class AuthsController extends AppController {
 			$authRevMessage= XmlParser::getNode($authRevResponse,'message');
 			$authRevLitleTxnId = XmlParser::getNode($authRevResponse,'litleTxnId');
 			$message= XmlParser::getAttribute($authRevResponse,'litleOnlineResponse','message');
+			$response = XmlParser::getNode($authRevResponse,'response');
+			$this->request->data['Auth']['revAuthResponse'] = $response;
 			$this->request->data['Auth']['message'] = NULL;
 			$this->request->data['Auth']['litleTxnId'] = NULL;
 			$this->request->data['Auth']['transactionStatus'] = NULL;
@@ -479,6 +489,7 @@ class AuthsController extends AppController {
 			$response = XmlParser::getNode($saleResponse,'response');
 			$saleMessage = XmlParser::getNode($saleResponse,'message');
 			$saleLitleTxnId = XmlParser::getNode($saleResponse,'litleTxnId');
+			$this->request->data['Auth']['saleResponse'] = $response;
 			$this->request->data['Auth']['message'] = $message;
 			$this->request->data['Auth']['response'] = $response;
 			$this->request->data['Auth']['saleMessage'] = $saleMessage;
@@ -512,6 +523,7 @@ class AuthsController extends AppController {
 			$tokenLitleTxnId = XmlParser::getNode($registerTokenResponse,'litleTxnId');
 			$this->request->data['Auth']['message'] = $message;
 			$this->request->data['Auth']['response'] = $response;
+			$this->request->data['Auth']['tokenResponse'] = $response;
 			$this->request->data['Auth']['tokenMessage'] = $tokenMessage;
 			$this->request->data['Auth']['transactionStatus'] = $tokenMessage;
 			$this->request->data['Auth']['litleTxnId'] = $tokenLitleTxnId;
@@ -547,6 +559,8 @@ class AuthsController extends AppController {
 			$voidMessage= XmlParser::getNode($voidResponse,'message');
 			$voidLitleTxnId = XmlParser::getNode($voidResponse,'litleTxnId');
 			$message= XmlParser::getAttribute($voidResponse,'litleOnlineResponse','message');
+			$response = XmlParser::getNode($voidResponse,'response');
+			$this->request->data['Auth']['voidResponse'] = $response;
 			$this->request->data['Auth']['message'] = NULL;
 			$this->request->data['Auth']['litleTxnId'] = NULL;
 			$this->request->data['Auth']['transactionStatus'] = NULL;

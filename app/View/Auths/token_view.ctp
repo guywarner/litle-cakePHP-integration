@@ -19,7 +19,7 @@
 		</dd>
 		<dt><?php echo __('Response'); ?></dt>
 		<dd>
-			<?php echo h($auth['Auth']['response']); ?>
+			<?php echo h($auth['Auth']['tokenResponse']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Message'); ?></dt>

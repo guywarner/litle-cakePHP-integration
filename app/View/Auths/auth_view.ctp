@@ -64,7 +64,7 @@
 		</dd>
 		<dt><?php echo __('Response'); ?></dt>
 		<dd>
-			<?php echo h($auth['Auth']['response']); ?>
+			<?php echo h($auth['Auth']['authResponse']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Auth Message'); ?></dt>

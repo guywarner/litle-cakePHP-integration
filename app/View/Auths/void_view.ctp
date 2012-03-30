@@ -9,7 +9,7 @@
 		</dd>
 		<dt><?php echo __('Response'); ?></dt>
 		<dd>
-			<?php echo h($auth['Auth']['response']); ?>
+			<?php echo h($auth['Auth']['voidResponse']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Message'); ?></dt>

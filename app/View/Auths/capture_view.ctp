@@ -14,7 +14,7 @@
 		</dd>
 		<dt><?php echo __('Response'); ?></dt>
 		<dd>
-			<?php echo h($auth['Auth']['response']); ?>
+			<?php echo h($auth['Auth']['captureResponse']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Capture Message'); ?></dt>
