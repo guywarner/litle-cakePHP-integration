@@ -1,15 +1,21 @@
-Litle and Co demo Cake PHP web application
+Litle Online PHP SDK
+=====================
+
 About Litle
-Litle & Co. powers the payment processing engines for leading companies that sell directly to consumers through internet retail, direct response marketing (TV, radio and telephone), and online services. Litle & Co. is the leading, independent authority in card-not-present (CNP) commerce, transaction processing and merchant services.
+------------
+[Litle &amp; Co.](http://www.litle.com) powers the payment processing engines for leading companies that sell directly to consumers through  internet retail, direct response marketing (TV, radio and telephone), and online services. Litle & Co. is the leading, independent authority in card-not-present (CNP) commerce, transaction processing and merchant services.
 
 About the CakePHP Demo
-
+---------------------
 The cakePHP demo application utilizes the Litle SDK for PHP in order to process various transactions. The cakePHP demo application is publically hosted but can also be setup to run locally.
 
 To Set Up Locally
+-----------------
 1. Download repository from git
 
-2. Download cakePHP
+>git clone git://github.com/LitleCo/litle-cakePHP-integration.git
+
+2. Download and setup cakePHP 
 
 3. Replace the app folder in cakePHP with the app folder for the git repository
 
