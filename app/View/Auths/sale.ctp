@@ -41,7 +41,10 @@
 	<?php echo "The Sale transaction enables you to both authorize fund availability and deposit those funds by means of a single transaction. The Sale transaction is also known as a conditional deposit, because the deposit takes place only if the authorization succeeds. If the authorization is declined, the deposit will not be processed."?>
 	</br>
 	</br>
-	<?php echo "Please fill out the information to process an sale"?>
+	<?php echo "Please fill out the information to process an sale."?>
+	</br>
+	</br>
+	<?php echo "You may click on the SDK Implementation link to view sale implementation."?>
 	</br>
 	</br>
 	<h3><?php echo ('Sample CreditCards:'); ?></h3>

@@ -51,8 +51,10 @@
 	<?php echo "This transaction allows you to perform a sale using a previously registered token instead of a credit card number"?>
 	</br>
 	</br>
-	<?php echo "Please fill out the information to process a sale"?>
+	<?php echo "Please fill out the information to process a sale."?>
 	</br>
 	</br>
-	
+	<?php echo "You may click on the SDK Implementation link to view sale implementation."?>
+	</br>
+	</br>
 </div>

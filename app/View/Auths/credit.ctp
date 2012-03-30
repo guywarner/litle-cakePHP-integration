@@ -38,7 +38,12 @@
 	<?php echo "You use a Credit transaction to refund money to a customer, even if the original transaction occurred outside of the Litle & Co. system. You may perform partial credits"?>
 	</br>
 	</br>
-	<?php echo "Please fill out the amount to be credited"?>
+	<?php echo "Please fill out the amount to be credited."?>
+	</br>
+	</br>
+	<?php echo "You may click on the SDK Implementation link to view credit implementation."?>
+	</br>
+	</br>
 	</div>
 </div>
 	

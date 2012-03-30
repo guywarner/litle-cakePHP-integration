@@ -35,7 +35,12 @@
 	<?php echo "The primary use of Authorization Reversal transactions is to eliminate any unused amount on an unexpired Authorization. Issuing an Authorization Reversal has the benefit of freeing any remaining held amount that reduces the buying power of your customer. Potentially, this both increases customer satisfaction and can allow them to proceed with additional purchases that may otherwise be blocked by credit limits. It also helps you avoid any misuse of Auth fees imposed by the card associations."?>
 	</br>
 	</br>
-	<?php echo "No user fields are needed for an auth reversal transaction"?>
+	<?php echo "No user fields are needed for an auth reversal transaction."?>
+	</br>
+	</br>
+	<?php echo "You may click on the SDK Implementation link to view authorization transaction implementation."?>
+	</br>
+	</br>
 	</div>
 </div>
 	

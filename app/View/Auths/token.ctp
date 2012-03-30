@@ -27,7 +27,10 @@
 	<?php echo "The register Token transaction allows you to swap a credit card number for a semi-randomized token number"?>
 	</br>
 	</br>
-	<?php echo "Please fill out the information to  register a credit card number"?>
+	<?php echo "Please fill out the information to  register a credit card number."?>
+	</br>
+	</br>
+	<?php echo "You may click on the SDK Implementation link to view token implementation."?>
 	</br>
 	</br>
 	<h3><?php echo ('Sample CreditCards:'); ?></h3>

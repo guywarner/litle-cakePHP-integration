@@ -43,7 +43,10 @@
 	<?php echo "The Authorization transaction enables you to confirm that a customer has submitted a valid payment method with their order and has sufficient funds to purchase the goods or services they ordered."?>
 	</br>
 	</br>
-	<?php echo "Please fill out the information to process an authorization"?>
+	<?php echo "Please fill out the information to process an authorization."?>
+	</br>
+	</br>
+	<?php echo "You may click on the SDK Implementation link to view auth implementation."?>
 	</br>
 	</br>
 	<h3><?php echo ('Sample CreditCards:'); ?></h3>

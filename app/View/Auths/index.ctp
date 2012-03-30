@@ -123,7 +123,7 @@
 		<li><?php echo $this->Html->link(__('New Auth'), array('action' => 'add')); ?></li>
 	</ul>
 	</br>
-	<?php echo "Please click the New Auth Link Above to begin"?>
+	<?php echo "Please click the New Auth link above to begin."?>
 	</br>
 	</br>
 	<h3><?php echo __('About Sale'); ?></h3>
@@ -134,7 +134,7 @@
 		<li><?php echo $this->Html->link(__('New Sale'), array('action' => 'sale')); ?></li>
 	</ul>
 	</br>
-	<?php echo "Please click the New Sale Link Above to begin"?>
+	<?php echo "Please click the New Sale link above to begin."?>
 	</br>
 	</br>
 	<h3><?php echo __('About Tokenization'); ?></h3>
@@ -145,5 +145,5 @@
 		<li><?php echo $this->Html->link(__('New Register Token Request'), array('action' => 'token')); ?></li>
 	</ul>
 	</br>
-	<?php echo "Please click the New Token Link Above to begin"?>
+	<?php echo "Please click the New Token link above to begin."?>
 </div>

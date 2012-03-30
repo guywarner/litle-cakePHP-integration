@@ -34,7 +34,12 @@
 	<?php echo "The re-auth transaction performs a second authorization by refrencing the litleTxnId of the original authorization"?>
 	</br>
 	</br>
-	<?php echo "No user fields are needed for a re-auth transaction"?>
+	<?php echo "No user fields are needed for a re-auth transaction."?>
+	</br>
+	</br>
+	<?php echo "You may click on the SDK Implementation link to view re-auth implementation."?>
+	</br>
+	</br>
 	</div>
 </div>
 	

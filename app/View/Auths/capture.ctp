@@ -40,6 +40,11 @@
 	<?php echo "You use a Capture transaction to transfer previously authorized funds from the customer to you after order fulfillment. You can submit a Capture transaction for the full amount of the Authorization, or for a lesser amount by setting the partial attribute to true. "?>
 	</br>
 	</br>
-	<?php echo "Please Fill Out the amount to be Captured and check the box for a partial capture"?>
+	<?php echo "Please fill out the amount to be captured and check the box for a partial capture."?>
+	</br>
+	</br>
+	<?php echo "You may click on the SDK Implementation link to view capture implementation."?>
+	</br>
+	</br>
 	</div>
 </div>
