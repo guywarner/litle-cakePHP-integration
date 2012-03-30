@@ -3,8 +3,10 @@
 <?php echo $this->Form->create('Auth');?>
 	<fieldset>
 		<legend><?php echo __('Re-Authorization'); ?></legend>
-	<h3><?php echo __('SDK Implementation:'); ?></h3>
-	<script src="https://gist.github.com/2243093.js"> </script>
+		<a id="button" style="cursor: pointer"><?php echo __('SDK Implementation'); ?></a>
+		<div id="effect" class = "effect" title="SDK Implementation">
+			<script src="https://gist.github.com/2243093.js"> </script>
+		</div>
 	</fieldset>
 	<h3><?php echo __('Additional Values Being Passed:'); ?></h3>
 	<table cellpadding="0" cellspacing="0">

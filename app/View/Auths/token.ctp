@@ -3,14 +3,10 @@
 <?php echo $this->Form->create('Auth');?>
 	<fieldset>
 		<legend><?php echo __('Register Token'); ?></legend>
-			<h3><?php echo __('SDK Implementation:'); ?></h3>
+		<a id="button" style="cursor: pointer"><?php echo __('SDK Implementation'); ?></a>
+		<div id="effect" class = "effect" title="SDK Implementation">
 			<script src="https://gist.github.com/2243156.js"> </script>
-	</br>
-	</br>
-	</br>
-	</br>
-	</br>
-	</br>
+		</div>
 	<h3><?php echo __('User Input:'); ?></h3>
 	<tr><?php
 		?></tr>

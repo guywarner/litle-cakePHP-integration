@@ -4,11 +4,10 @@
 	<fieldset>
 		<legend><?php echo __('Authorization'); ?></legend>
 		
-				<a id="button" style="cursor: pointer"><?php echo __('SDK Implementation'); ?></a>
-
-				<div id="effect" class = "effect" title="SDK Implementation">
-					<script src="https://gist.github.com/2007176.js"> </script>
-				</div>
+		<a id="button" style="cursor: pointer"><?php echo __('SDK Implementation'); ?></a>
+		<div id="effect" class = "effect" title="SDK Implementation">
+			<script src="https://gist.github.com/2007176.js"> </script>
+		</div>
 			
 	<h3><?php echo __('User Input:'); ?></h3>
 	<tr><?php
