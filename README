@@ -1,35 +1,20 @@
+Litle and Co demo Cake PHP web application
+About Litle
+Litle & Co. powers the payment processing engines for leading companies that sell directly to consumers through internet retail, direct response marketing (TV, radio and telephone), and online services. Litle & Co. is the leading, independent authority in card-not-present (CNP) commerce, transaction processing and merchant services.
 
-command to import database 
+About the CakePHP Demo
 
+The cakePHP demo application utilizes the Litle SDK for PHP in order to process various transactions. The cakePHP demo application is publically hosted but can also be setup to run locally.
+
+To Set Up Locally
+1. Download repository from git
+
+2. Download cakePHP
+
+3. Replace the app folder in cakePHP with the app folder for the git repository
+
+4. Import the database to mysql
  mysql -u LitleCakePHP cake<~rganmukh/git/litle-cakePHP-integration/app/Config/Schema/filename.sql
 
+5. navigate to litle-cakePHP-integration/index.php inside a browser to view demo webb application
 
-
-CakePHP is a rapid development framework for PHP which uses commonly known design patterns like Active Record, Association Data Mapping, Front Controller and MVC. Our primary goal is to provide a structured framework that enables PHP users at all levels to rapidly develop robust web applications, without any loss to flexibility.
-
-The Cake Software Foundation - promoting development related to CakePHP
-http://cakefoundation.org/
-
-CakePHP - the rapid development PHP framework
-http://www.cakephp.org
-
-Cookbook - user documentation for learning about CakePHP
-http://book.cakephp.org
-
-API - quick reference to CakePHP
-http://api.cakephp.org
-
-The Bakery - everything CakePHP
-http://bakery.cakephp.org
-
-The Show - live and archived podcasts about CakePHP and more
-http://live.cakephp.org
-
-CakePHP TV - screen casts from events and video tutorials
-http://tv.cakephp.org
-
-CakePHP Google Group - community mailing list and forum
-http://groups.google.com/group/cake-php
-
-#cakephp on irc.freenode.net - chat with CakePHP developers
-irc://irc.freenode.net/cakephp
