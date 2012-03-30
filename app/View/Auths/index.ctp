@@ -18,9 +18,11 @@
 			  $state = "";
 			  $displayValue = array('');
 			  $actualValue = array('');
+			  $amount = $auth['Auth']['amount'];
 			  if(($auth['Auth']['authMessage'] == "Approved") && ($auth['Auth']['captureMessage'] != "Approved") && ($auth['Auth']['authRevMessage'] != "Approved"))
 			  {
 			  	$state = 'Authorized';
+			  	$amount = $auth['Auth']['authAmount'];
 			  	$displayValue = array('Auth Rev.', 'Capture', 'View');
 			  	$actualValue = array( array('action' => 'authReversal', $auth['Auth']['id']), array('action' => 'capture', $auth['Auth']['id']), array('action' => 'authView', $auth['Auth']['id']));
 			  }
@@ -45,6 +47,7 @@
 			  else if(($auth['Auth']['saleMessage'] == "Approved"))
 			  {
 			  	$state = 'Auth & Captured';
+			  	$amount = $auth['Auth']['saleAmount'];
 			  	$displayValue = array('Credit', 'Void','View');
 			  	$actualValue = array( array('action' => 'credit', $auth['Auth']['id']), array('action' => 'void', $auth['Auth']['id']),array('action' => 'saleView', $auth['Auth']['id']));
 			  }
@@ -57,6 +60,7 @@
 			  else if ($auth['Auth']['captureMessage'] == "Approved" && $auth['Auth']['creditMessage'] != "Approved")
 			  {
 				  $state = 'Captured';
+				  $amount = $auth['Auth']['captureAmount'];
 				  $displayValue = array('Credit', 'Void','View');
 			  	  $actualValue = array( array('action' => 'credit', $auth['Auth']['id']), array('action' => 'void', $auth['Auth']['id']), array('action' => 'captureView', $auth['Auth']['id']) );
 			  }
@@ -64,7 +68,7 @@
 			  {
 				  $state = 'Refunded';
 				  $displayValue = array('Void','View');
-			  	   $actualValue = array(array('action' => 'void', $auth['Auth']['id']), array('action' => 'creditView', $auth['Auth']['id']) );
+			  	  $actualValue = array(array('action' => 'void', $auth['Auth']['id']), array('action' => 'creditView', $auth['Auth']['id']) );
 			  }
 			  else if($auth['Auth']['response'] != "000" && $auth['Auth']['response'] != "")
 			  {
@@ -81,7 +85,7 @@
 		<td><?php echo h($auth['Auth']['id']); ?>&nbsp;</td>
 		<td><?php echo h($auth['Auth']['litleTxnId']); ?>&nbsp;</td>
 		<td><?php echo h($state); ?>&nbsp;</td>
-		<td><?php echo h($auth['Auth']['amount']); ?>&nbsp;</td>
+		<td><?php echo h($amount); ?>&nbsp;</td>
 		<td><?php echo h($auth['Auth']['message']); ?>&nbsp;</td>
 		<td><?php echo h($auth['Auth']['transactionStatus']); ?>&nbsp;</td>
 		<td class="actions"><div align="left">

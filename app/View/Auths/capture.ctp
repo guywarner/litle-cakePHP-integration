@@ -32,7 +32,8 @@ function toggle() {
 		<tr>
 			<td style="text-align: left;">
 				<div class="input text">
-					<?php echo $this->Form->input('captureAmount',array('disabled'=>TRUE,'onClick'=>"toggle()"));?>
+					<?php echo $this->Form->input('captureAmount',array('disabled'=>TRUE));?>
+					<?php echo $this->Form->input('amount',array('type'=>"hidden", 'value'=>$this->data['Auth']['amount']));?>
 				</div>
 			</td>
 			<td>
@@ -40,7 +41,7 @@ function toggle() {
 			</td>
 		</tr>
 		<tr>
-		<td colspan = "2" style="text-align: left;"><input type="hidden" name="data[Auth][partial]" id="AuthPartial_" value="0"/><input type="checkbox" name="data[Auth][partial]"  value="1" id="AuthPartial" onClick="toggle()"/>Partial Capture?</td>
+			<td colspan = "2" style="text-align: left;"><?php echo $this->Form->checkbox('partial', array('checked' => false,'onClick'=>"toggle()" ));echo 'Partial Capture?'; ?></td>
 		</tr>
 	</table>
 	

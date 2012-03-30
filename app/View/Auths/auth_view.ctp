@@ -9,7 +9,7 @@
 		</dd>
 		<dt><?php echo __('Amount'); ?></dt>
 		<dd>
-			<?php echo h($auth['Auth']['amount']); ?>
+			<?php echo h($auth['Auth']['authAmount']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Name'); ?></dt>
