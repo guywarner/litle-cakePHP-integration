@@ -30,7 +30,7 @@
 			  {
 			  	$state = 'Auth Reversed';
 			  	$displayValue = array('View');
-			  	$actualValue = array(array('action' => 'reauthView', $auth['Auth']['id']));
+			  	$actualValue = array(array('action' => 'authrevView', $auth['Auth']['id']));
 			  }
 			   else if(($auth['Auth']['voidMessage'] == "Approved"))
 			  {
