@@ -277,6 +277,7 @@ class AuthsController extends AppController {
 			$this->request->data['Auth']['transactionStatus'] = $captureMessage;
 			$this->request->data['Auth']['captureLitleTxnId'] = $captureLitleTxnId;
 			$this->request->data['Auth']['captureAmount'] = ($this->data['Auth']['partial'] == 1)? $this->data['Auth']['captureAmount']:$this->data['Auth']['amount'];
+			//var_dump($this->request->data); exit;
 			if ($this->Auth->save($this->request->data)) {
 				$this->Session->setFlash(__($captureMessage));
 				$this->redirect(array('action' => 'index'));
@@ -301,8 +302,8 @@ class AuthsController extends AppController {
 		if ($this->request->is('post') || $this->request->is('put')) {
 
 			$hash_in = array(
-										'litleTxnId'=>$this->Auth->field('captureLitleTxnId'),
-										'amount'=>$this->data['Auth']['creditAmount']
+								'litleTxnId'=>$this->Auth->field('captureLitleTxnId'),
+								'amount'=>$this->data['Auth']['creditAmount']
 			);
 			$initilaize = &new LitleOnlineRequest();
 			@$creditResponse = $initilaize->creditRequest($hash_in);
