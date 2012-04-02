@@ -303,7 +303,7 @@ class AuthsController extends AppController {
 
 			$hash_in = array(
 								'litleTxnId'=>$this->Auth->field('captureLitleTxnId'),
-								'amount'=>$this->data['Auth']['creditAmount']
+								'amount'=>($this->data['Auth']['creditAmount'] == '')? $this->Auth->field('amount'):$this->data['Auth']['creditAmount']
 			);
 			$initilaize = &new LitleOnlineRequest();
 			@$creditResponse = $initilaize->creditRequest($hash_in);
@@ -316,7 +316,7 @@ class AuthsController extends AppController {
 			$this->request->data['Auth']['message'] = NULL;
 			$this->request->data['Auth']['litleTxnId'] = NULL;
 			$this->request->data['Auth']['transactionStatus'] = NULL;
-			$this->request->data['Auth']['amount'] = $this->data['Auth']['creditAmount'];
+			$this->request->data['Auth']['creditAmount'] = $hash_in['amount'];
 			$this->request->data['Auth']['message'] = $message;
 			$this->request->data['Auth']['litleTxnId'] = $creditLitleTxnId;
 			$this->request->data['Auth']['creditMessage'] = $creditMessage;
