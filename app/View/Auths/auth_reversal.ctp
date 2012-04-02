@@ -1,11 +1,29 @@
 <h1><a href="http://www.Litle.com/developers"><?php echo $this->Html->image('Litle.jpg');?></a></h1>
+<script>
+function toggle() {
+  var checkbox = document.getElementById("AuthPartial");
+  var toggle = document.getElementById("AuthCaptureAmount");
+  if(!checkbox.checked){
+  	toggle.value="";
+  }
+  updateToggle = checkbox.checked ? toggle.disabled=false : toggle.disabled=true;
+}
+</script>
 <div class="auths form">
 <?php echo $this->Form->create('Auth');?>
 	<fieldset>
 		<h3><?php echo __('Authorization Reversal'); ?></h3>
 		<a id="button" style="cursor: pointer"><?php echo __('SDK Implementation'); ?></a>
 		<div id="effect" class = "effect" title="SDK Implementation">
+			<div class = "gist">
+				Full Authorization Reversal: <br><br>
+			</div>
 			<script src="https://gist.github.com/2230606.js"> </script>
+			<div class = "gist">
+				Partial Authorization Reversal: <br><br>
+			</div>
+			<script src="https://gist.github.com/2283749.js"> </script>
+			<br>
 		</div>
 	
 	</fieldset>
