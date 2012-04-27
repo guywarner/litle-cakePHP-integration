@@ -17,7 +17,7 @@ To Set Up Locally
 
 - Run Litle PHP SDK setup in console
 
-> php app/lib/litle/Setup.php
+> php app/Lib/litle/Setup.php
 
 - Create a symbolic link to the folder or drop it into the /var/www/html directory
 
