@@ -7,7 +7,7 @@ About Litle
 
 About the CakePHP Demo
 ---------------------
-The cakePHP demo application utilizes the Litle SDK for PHP in order to process various transactions. The cakePHP demo application is publically hosted but can also be setup to run locally. Upon opeing the application the demo app will guide you through the transaction process. This application supoorts authorization, capture, refund, credit, authorization reversal, tokenization and sale transactions.
+The cakePHP demo application utilizes the Litle SDK for PHP in order to process various transactions. The cakePHP demo application is publically hosted but can also be setup to run locally. Upon opening the application the demo app will guide you through the transaction process. This application supports authorization, capture, refund, credit, authorization reversal, tokenization and sale transactions.
 
 To Set Up Locally
 -----------------
